@@ -1,0 +1,37 @@
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="md-form form-sm" id="datum">
+                <i class="fas fa-calendar prefix"></i>
+                <label for="startDate">Begin datum</label>
+                <input id="startDate" class="form-control datepicker" type="text" ng-model="from.date">                          
+                <span>Gebruik rechter muis voor activatie van de optie</span>
+            </div>                       
+        </div>
+        
+        <div class="col-md-6">
+            <div class="md-form form-sm" id="time">
+                <i class="fas fa-clock prefix"></i>
+                <label for="startTime">Begin tijd</label>
+                <input id="input_starttime" type="text" class="form-control timepicker" ng-model="from.time">                                 
+                <span>Gebruik rechter muis voor activatie van de optie</span>
+            </div>          
+        </div>
+        
+        <div class="col-md-12">
+            <div class="md-form form-sm" id="subject">
+                <i class="fas fa-envelope prefix"></i>    
+                <label for="onderwerp">Onderwerp</label>
+                <input id="onderwerp" type="text" class="form-control" ng-model="from.onderwerp"> 
+            </div>         
+        </div>
+
+        <div class="col-md-12">
+            <label>Beschrijving</label>
+            <textarea class="form-control" ui-tinymce="tinymceOptions" ng-model="from.data"></textarea>           
+        </div>
+    </div>
+
+    <button class="btn btn-success" ng-click="save(from)">Opslaan</button>
+</div>

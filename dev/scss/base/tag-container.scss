@@ -1,0 +1,30 @@
+.tag-container{
+  /*border: 1px solid #ced4da;*/
+  /*padding: 10px;*/
+  /*border-radius:5px;*/
+  display: flex;
+
+  .tag {
+    padding:5px;
+    margin:5px;
+    border: 1px solid #ced4da;
+    display: flex;
+    align-items: center;
+    border-radius:3px;
+    background: #5a95f5!important;
+    color: #fff;
+
+    i{
+     margin-left: 05px;
+     font-size:10px;
+    }
+  }
+
+  .inputTag{
+     margin-top:05px;
+     flex: 1;
+     font-size:10px;
+     outline:none;
+     /*border: 0px;*/
+  }
+}

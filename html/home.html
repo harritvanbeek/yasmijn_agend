@@ -1,0 +1,46 @@
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col-md-8">  
+                <div class="tag-container">
+                    <input id="inputTag" type="text" name="tags" class="form-control" placeholder="search" ng-model="search"> 
+                </div>              
+            </div>
+
+            <div class="col-md-4">                
+                <button onclick="window.print();return false;" class="btn btn-outline-primary btn-rounded btn-sm">Afdrukken</button>
+                <button ui-sref="admin" class="btn btn-rounded btn-sm btn-primary" >Toevoegen</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row print" style="margin-top:20px;">
+        <div class="col-md-4">
+            <ul>
+                <li ng-repeat="item in agenda">
+                    <a ng-click="setTable($index, item)">
+                        <strong ng-bind-html="item.dates"></strong>                        
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="col-md-7">            
+            <table class="table">
+                <tbody>
+                    <tr ng-repeat="items in appointment | filter:search">
+                        <td ng-bind-html="items.appointment.time"></td>
+                        <td ng-bind-html="items.appointment.message"></td>
+                        <td ng-bind-html="items.appointment.subject"></td>
+                        <td>
+                            <a ng-click="edit(items)"><i class="fas fa-pen"></i></a>
+                            <a ng-click="trash(items)"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                </tbody>        
+            </table>
+        </div>
+    </div>
+
+</div>

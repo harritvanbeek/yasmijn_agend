@@ -1,0 +1,22 @@
+<div class="container loginPage">
+    <div ng-if="success" class="alert alert-success" role="alert" ng-bind-html="success"></div>
+    <h1>Agenda</h1>
+    <hr>
+    <form>
+        <div class="md-form form-sm">
+            <i class="fas fa-user prefix"></i>
+            <input id="username" type="text" class="form-control" ng-model="form.user">
+            <label for="username">Gebruiker</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fas fa-lock prefix"></i>
+            <label for="password">Wachtwoord</label>
+            <input id="password" type="text" class="form-control" ng-model="form.password">
+        </div>
+
+        <div>
+            <button class="btn btn-roze btn-sm" ng-click="loginUser(form)">Inloggen</button>
+        </div>
+    </form>
+</div>

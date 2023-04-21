@@ -1,0 +1,19 @@
+.loginPage{
+  h1{ 
+    text-align: center; 
+    font-size:24pt;
+    font-weight:bolder;
+    color:$velRoze;
+    text-shadow: 2px 2px $black;
+  }
+
+  border: 1px solid #ced4da;
+  border-radius:5px;
+  padding: 20px 40px;
+  .fas{color: $velRoze;}
+
+  .btn-roze{
+    background-color: $velRoze!important;
+    color: #000!important;
+  }
+}
