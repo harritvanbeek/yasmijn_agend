@@ -13,6 +13,18 @@ class login{
         $this->_SESSION     = NEW \classes\core\session;    
     }
 
+    public function getUsername($uuid = ""){
+        $this->array =  ["uuid" => "{$uuid}"];
+        $this->query = "SELECT `username` FROM `users` WHERE `uuid` = :uuid ";
+        return $this->_DB->get($this->query, $this->array)->username;        
+    }
+
+    public function updatePassword($array = []){
+        $this->query    =   "UPDATE `users` SET `password` = :password WHERE `uuid` = :uuid ";
+        $this->return   =   $this->_DB->action($this->query, $array);
+        return $this->return;
+    }
+
     public function uuidExist(){
         $this->uuid     = $this->_SESSION->get('userUuid')->uuid;
         $this->array    =   ["uuid" => "{$this->uuid}"];

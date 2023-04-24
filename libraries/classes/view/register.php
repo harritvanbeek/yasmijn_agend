@@ -14,11 +14,14 @@ class register{
         $this->_SESSION     = NEW \classes\core\session;
     }
 
-    public function passwordExist(){
-        $this->array    =   ["user" => "{$GLOBALS["username"]}"];
+    public function passwordExist($username = ""){
+        $this->username     =   !empty($username) ? $username : $GLOBALS["username"];
+        $this->stePassword  =   !empty($GLOBALS["oldPassword"]) ? $GLOBALS["oldPassword"] : $GLOBALS["password"];
+        
+        $this->array    =   ["user" => "{$this->username}"];
         $this->query    =   "SELECT `password` FROM `users` WHERE `username` = :user"; 
         $this->password =   $this->_DB->get($this->query, $this->array)->password;       
-        if (!password_verify($GLOBALS["password"], $this->password)) {
+        if (!password_verify($this->stePassword, $this->password)) {
            return false;
         }           
     }

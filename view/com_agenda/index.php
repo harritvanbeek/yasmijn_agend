@@ -15,6 +15,47 @@
     $login      =   NEW \classes\view\login;
 
     switch($action){
+        case "changePassword" :
+            if($input->exist()){
+                $oldPassword    = !empty($input->get("data")["old_password"])    ? escape($input->get("data")["old_password"])      : NULL;
+                $newPassword    = !empty($input->get("data")["new_password"])    ? escape($input->get("data")["new_password"])      : NULL;
+                $repeatPassword = !empty($input->get("data")["repeat_password"]) ? escape($input->get("data")["repeat_password"])   : NULL;
+                
+                $uuid           = $login->getUsername($session->get("userUuid")->uuid); 
+
+                if(empty($oldPassword)      === true)                {$errors = ["Oude wachtwoord is een verplichte veld"];}
+                elseif($register->passwordExist($uuid) === false)    {$errors = ["Wachtwoord is onjuist"];}
+                elseif(empty($newPassword)      === true)            {$errors = ["Nieuw wachtwoord is een verplichte veld"];}
+                elseif(empty($repeatPassword)   === true)            {$errors = ["Repeat wachtwoord is een verplichte veld"];}
+                elseif($newPassword !== $repeatPassword)             {$errors = ["Wachtwoorden komen niet overeen"];}
+
+                if(!empty($input->exist()) and empty($errors)){
+                    //set new password
+                    $postArray = [
+                        "uuid"      =>  $session->get("userUuid")->uuid,
+                        "password"  =>  $settings->passwordHash($newPassword),
+                    ];
+                    
+                    if($login->updatePassword($postArray)){
+                        $dataArray =    [
+                            "data"          =>  "success",
+                            "dataContent"   =>  "Wachtwoord is bijgewekt",
+                        ];
+                    };
+
+                }else{
+                    $dataArray =    [
+                        "data"          =>  "error",
+                        "dataContent"   =>  "{$errors[0]}",
+                    ];
+                }
+
+                if(!empty($dataArray)){
+                    echo json_encode($dataArray); 
+                }
+            }
+        break;
+
         case "getAppointment" :
             if($input->exist()){
                 $post_uuid = !empty($input->get("data")["post_uuid"]) ? $input->get("data")["post_uuid"] : NULL;
@@ -56,8 +97,7 @@
                     "onderwerp"  =>  "{$item->subject}",
                     "data"       =>  "{$item->message}",
                 ];
-                
-                //debug($dataArray);
+
                 echo json_encode($dataArray);
             }
         break;
@@ -87,8 +127,11 @@
                 $message    = !empty($input->get("data")["data"])       ? $input->get("data")["data"]               : NULL;
                 $subject    = !empty($input->get("data")["onderwerp"])  ? escape($input->get("data")["onderwerp"])  : NULL;
                 
-                $errors     =   "";
-
+                if(empty($time) === true)        { $errors = ["Tijd is een verplichte veld!"]; }
+                elseif(empty($date) === true)    { $errors = ["Datum is een verplichte veld!"]; }
+                elseif(empty($message) === true) { $errors = ["Bericht is een verplichte veld!"]; }
+                elseif(empty($subject) === true) { $errors = ["Onderwerp is een verplichte veld!"]; }
+                
                 if(!empty($input->exist()) and empty($errors)){                    
                     $dateUuid =   $settings->MakeUuid();
 
