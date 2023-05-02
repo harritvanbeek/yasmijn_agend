@@ -1,9 +1,11 @@
 "use strict";
 boann.controller('HomeController', ['$scope', '$http', '$window', '$state', function($scope, $http, $window, $state) {
-        var URI       =   controler.view + "agenda/index.php"; 
-        var action    =   $state.$current.name;
-
-        console.log(action);
+        console.log($state.$current.url.pattern.split("/")[1] + " = case name");
+        console.log($state.router.globals.$current.views.mainpage.controller + " is Loaded");
+        
+        var URI         = controler.view + "agenda/index.php"; 
+        var action      = $state.$current.name;
+        $scope.thisTab  = "1";
 
         switch(action){
             case "changePassword" :
@@ -75,11 +77,21 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
                             if(data.status === 200){
                                 $scope.appointment = data.data;
                                 $scope.getTable = true;
-                                console.log(data.data);
+                                //console.log(data.data);
                             }
                         });                
                     }
                 }
+
+                $scope.setTab = function(index){                    
+                    $scope.thisTab = index;                   
+                } 
+
+                $scope.getTab = function(index){
+                    if($scope.thisTab === index){
+                        return true;
+                    }
+                }  
             break;
         } 
         
