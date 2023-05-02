@@ -112,9 +112,12 @@
                             "data"          =>  "success",
                             "dataUri"       =>  "agenda",
                         ];
-                    }else{};
+                    };
                 }else{
-
+                        $dataArray =    [
+                            "data"          =>  "errors",
+                            "dataUri"       =>  "Database disconnect error",
+                        ];
                 }
                 echo json_encode($dataArray);                 
             }
@@ -133,15 +136,22 @@
                 elseif(empty($subject) === true) { $errors = ["Onderwerp is een verplichte veld!"]; }
                 
                 if(!empty($input->exist()) and empty($errors)){                    
-                    $dateUuid =   $settings->MakeUuid();
+                    $newDate    = date("Y-m-d", strtotime($date));
 
-                    //save appointment
-                    $dataPost = [
-                        "uuid"  => "{$dateUuid}",
-                        "date"  => date("Y-m-d", strtotime($date)), //0000-00-00
-                    ];
+                    /*debug($newDate, 1);*/
+                    /*debug($agenda->datesExist($newDate), 1);*/
+                    if($agenda->datesExist($newDate) > 0){
+                        $dateUuid = $agenda->getDateUuid($newDate)->uuid;
+                    }else{
+                        //save appointment
+                        $dateUuid   = $settings->MakeUuid();
+                        $dataPost = [
+                            "uuid"  => "{$dateUuid}",
+                            "date"  => "{$newDate}", //0000-00-00
+                        ];
 
-                    $agenda->datePost($dataPost);
+                        $agenda->datePost($dataPost);
+                    }
 
                     //save appointments
                     $dataArray  =   [
@@ -159,10 +169,16 @@
                             "dataUri"       =>  "agenda",
                         ];  
                     }else{
-
+                        $dataArray =    [
+                            "data"          =>  "errors",
+                            "dataUri"       =>  $errors[0],
+                        ];
                     };
                 }else{
-
+                        $dataArray =    [
+                            "data"          =>  "errors",
+                            "dataUri"       =>  "Database disconnect error",
+                        ];
                 }
                     
                     if(!empty($dataArray)){

@@ -38,16 +38,12 @@
                             ];                            
                         };
                     }
-
-
                 }else{
                     $dataArray =    [
                         "data"          =>  "error",
                         "dataContent"   =>  "{$errors[0]}",
                     ];
-                }
-
-                
+                }                
             }else{
                 //errors;
             }

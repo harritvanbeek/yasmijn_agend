@@ -28,12 +28,21 @@ class agenda{
         return $this->_DB->getAll($this->query, $this->array);
     }
 
+    public function datesExist($date){
+        $this->query = "SELECT COUNT(`date`) as `exists` FROM `agenda_appointment` WHERE `date` = '{$date}' ";
+        return $this->_DB->get($this->query)->exists;
+    }
+
+    public function getDateUuid($date){
+        $this->query = "SELECT * FROM `agenda_appointment` WHERE `date` = '{$date}' ";
+        return $this->_DB->get($this->query);
+    }
+
     public function getDates(){
         $this->query = "SELECT * 
-                            
-                            FROM `agenda_appointment`
-                                ##LEFT JOIN `agenda_dates`
-                                ##ON `agenda_appointment`.`uuid` = `agenda_dates`.`dateUuid`
+                            FROM `agenda_appointment` 
+                            GROUP BY `date`
+                            ORDER BY `date` ASC
                         ";
         return $this->_DB->getAll($this->query);
     }

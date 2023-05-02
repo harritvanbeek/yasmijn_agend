@@ -29,7 +29,7 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
                      if(data){
                         var VALUES = [{data:data}];
                         $http.post(URI, VALUES, {params:{action:"newAppointment"}}).then(function(data){
-                              if(data.status === 200){
+                              if(data.status === 200){                                     
                                  switch(data.data.data){
                                     case "success":
                                        $state.go(data.data.dataUri); 
