@@ -14,7 +14,7 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
                     },
 
                     "mainpage" : {
-                        templateUrl : "./html/admin/home.html?v="+controler.version,
+                        templateUrl : "./html/home/home.html?v="+controler.version,
                         controller  : "adminController",
                     },
                 }
@@ -57,8 +57,7 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
                 url: "/change-password/",
                 views : {
                     "navbar" : {
-                        templateUrl : "./html/navbar.html?v="+controler.version,
-                        //controller: "NavbarController",
+                        templateUrl : "./html/navbar.html?v="+controler.version,                        
                     },
 
                     "mainpage" : {
@@ -73,8 +72,7 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
                 url: "/clienten/",
                 views : {
                     "navbar" : {
-                        templateUrl : "./html/navbar.html?v="+controler.version,
-                        //controller: "NavbarController",
+                        templateUrl : "./html/navbar.html?v="+controler.version,                        
                     },
 
                     "mainpage" : {
@@ -88,11 +86,6 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
                 name:"login",
                 url: "/login/",
                 views : {
-                    /*"navbar" : {
-                        templateUrl : "./html/navbar.html?v="+controler.version,
-                        //controller: "NavbarController",
-                    },*/
-
                     "mainpage" : {
                         templateUrl : "./html/login.html?v="+controler.version,
                         controller  : "loginController",

@@ -15,6 +15,75 @@
     $login      =   NEW \classes\view\login;
 
     switch($action){
+        case "trashClient" :
+            if($input->exist()){
+                $uuid     =    !empty($input->get("data")["uuid"])     ? escape($input->get("data")["uuid"])      : NULL;
+                
+                if(!empty($input->exist()) and empty($errors)){
+                    if($agenda->trashClient($uuid)){
+                        $dataArray =    [
+                            "data"          =>  "success",                                
+                        ];
+                    };                   
+                }
+
+                if(!empty($dataArray)){
+                    echo json_encode($dataArray); 
+                }
+            }
+        break;
+
+        case "getClienten" :
+             echo json_encode($agenda->getClients());
+        break;
+
+        case "postClienten" :
+            if($input->exist()){
+                $uuid     =    !empty($input->get("data")["uuid"])     ? escape($input->get("data")["uuid"])      : NULL;
+                $client   =    !empty($input->get("data")["client"])   ? escape($input->get("data")["client"])    : NULL;
+                
+               
+                if(empty($client)){$errors = ["je hebt niets opgegeven!"];}
+                elseif($agenda->clientExist($client)){$errors = ["Client bestaat al!"];}
+               
+
+                if(!empty($input->exist()) and empty($errors)){
+                    if($uuid){
+                        $postArray = [
+                            "uuid"    =>  $uuid,
+                            "client"  =>  $client,
+                        ];
+                        
+                        if($agenda->updateClient($postArray)){
+                            $dataArray =    [
+                                "data"          =>  "success",                                
+                            ];
+                        };                         
+                    }else{
+                        $postArray = [
+                            "uuid"    =>  $settings->MakeUuid(),
+                            "client"  =>  $client,
+                        ];
+                        
+                        if($agenda->postClient($postArray)){
+                            $dataArray =    [
+                                "data"          =>  "success",                                
+                            ];
+                        };                         
+                    }
+                }else{
+                    $dataArray =    [
+                        "data"          =>  "error",
+                        "dataContent"   =>  "{$errors[0]}",
+                    ];
+                }
+
+                if(!empty($dataArray)){
+                    echo json_encode($dataArray); 
+                }
+            }
+        break;
+
         case "changePassword" :
             if($input->exist()){
                 $oldPassword    = !empty($input->get("data")["old_password"])    ? escape($input->get("data")["old_password"])      : NULL;

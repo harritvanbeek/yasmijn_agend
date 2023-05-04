@@ -12,6 +12,34 @@ class agenda{
     }
 
 
+    public function trashClient($date){
+        $this->array = ["uuid" => "{$date}"];
+        $this->query = "DELETE FROM `clients` WHERE `uuid` = :uuid ";
+        return $this->_DB->action($this->query, $this->array);
+    }
+
+    public function updateClient($date = []){
+        $this->query = "UPDATE `clients` SET `client` = :client WHERE `uuid` = :uuid"; 
+        return $this->_DB->action($this->query, $date);
+    }
+
+    public function postClient($date = []){
+        $this->query = "INSERT INTO `clients` (`uuid`, `client`) VALUES(:uuid, :client)";
+        return $this->_DB->action($this->query, $date);
+    }
+
+    public function clientExist($client){
+        $this->array = ["client" => "{$client}"];
+        $this->query = "SELECT count('client') as `exist` FROM `clients` WHERE `client` = :client ";
+        return $this->_DB->get($this->query, $this->array)->exist;
+    }
+
+
+    public function getClients(){
+        $this->query = "SELECT * FROM `clients`";
+        return $this->_DB->getAll($this->query);
+    }
+
     public function thisAppointment($date = ""){
         $this->array =  ["dates" => "{$date}"];
         $this->query = "SELECT * 

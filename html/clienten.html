@@ -1,1 +1,24 @@
-vre
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input ng-model="form.client" class="form-control"></td>
+                <td><button ng-click="save(form)"  class="btn btn-sm btn-outline-indigo">Opslaan</button></td>
+            </tr>
+
+            <tr ng-repeat="client in clienten">
+                <td ng-bind-html="client.client"></td>
+                <td>
+                    <a ng-click="edit(client)"><i class="fas fa-pen"></i></a>
+                    <a ng-click="trash(client)"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

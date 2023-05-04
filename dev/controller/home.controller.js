@@ -4,10 +4,60 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
         console.log($state.router.globals.$current.views.mainpage.controller + " is Loaded");
         
         var URI         = controler.view + "agenda/index.php"; 
-        var action      = $state.$current.name;
+        var action      = $state.$current.url.pattern.split("/")[1];
         $scope.thisTab  = "1";
 
         switch(action){
+            case "clienten" :
+                $scope.edit =  function(data){
+                    $scope.form = data;                    
+                }
+
+                $scope.trash =  function(data){
+                    if(data){
+                        var VALUES = [{data:data}];
+                        $http.post(URI, VALUES, {params:{action:"trashClient"}}).then(function(data){
+                            console.log(data.data);
+                            switch(data.data.data){
+                                case "success":
+                                    $state.reload();                              
+                                break;
+
+                                case "error":
+                                    swal("Oeps!", data.data.dataContent, "error");                             
+                                break;
+                            }   
+                        });
+                    }
+                }
+
+                $http.get(URI, {params:{action:"getClienten"}}).then(function(data){
+                    if(data.status === 200){
+                        if(data.data !== 'null'){
+                            $scope.clienten = data.data;                                                                  
+                        }
+                    };
+                });
+
+                $scope.save = function(data){
+                    if(data){
+                        var VALUES = [{data:data}];
+                        $http.post(URI, VALUES, {params:{action:"postClienten"}}).then(function(data){
+                            console.log(data.data); 
+                            switch(data.data.data){
+                                case "success":
+                                    $state.reload();                              
+                                break;
+
+                                case "error":
+                                    swal("Oeps!", data.data.dataContent, "error");                             
+                                break;
+                            }                                  
+                        });
+                    }
+                }             
+            break;
+
             case "changePassword" :
                 $scope.updatePassword = function(item){
                     if(item){
