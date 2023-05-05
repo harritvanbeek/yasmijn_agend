@@ -44,11 +44,21 @@
         
         <div class="col-md-7">            
             <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tijd</th>
+                        <th>Bericht</th>
+                        <th>onderwerp</th>
+                        <th>Client</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr ng-repeat="items in appointment | filter:search">
                         <td ng-bind-html="items.appointment.time"></td>
                         <td ng-bind-html="items.appointment.message"></td>
                         <td ng-bind-html="items.appointment.subject"></td>
+                        <td ng-bind-html="items.appointment.client"></td>
                         <td>
                             <a ng-click="edit(items)"><i class="fas fa-pen"></i></a>
                             <a ng-click="trash(items)"><i class="fas fa-trash"></i></a>

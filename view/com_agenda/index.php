@@ -18,7 +18,7 @@
         case "trashClient" :
             if($input->exist()){
                 $uuid     =    !empty($input->get("data")["uuid"])     ? escape($input->get("data")["uuid"])      : NULL;
-                
+                //chek agende user is not exist
                 if(!empty($input->exist()) and empty($errors)){
                     if($agenda->trashClient($uuid)){
                         $dataArray =    [
@@ -136,6 +136,7 @@
                             "time"          =>  date("H:i", strtotime($item->time)),
                             "message"       =>  "{$item->message}",
                             "subject"       =>  "{$item->subject}",
+                            "client"        =>  "{$item->client}",
                         ],                   
                    ]; 
                 };
@@ -165,6 +166,7 @@
                     "time"       =>  date("H:i:s", strtotime($item->time)), //00:00:00
                     "onderwerp"  =>  "{$item->subject}",
                     "data"       =>  "{$item->message}",
+                    "client"     =>  "{$item->uuid}",
                 ];
 
                 echo json_encode($dataArray);
@@ -196,6 +198,7 @@
             if($input->exist()){
                 $time       = !empty($input->get("data")["time"])       ? escape($input->get("data")["time"])       : NULL;
                 $date       = !empty($input->get("data")["date"])       ? escape($input->get("data")["date"])       : NULL;
+                $client     = !empty($input->get("data")["client"])     ? $input->get("data")["client"]             : NULL;
                 $message    = !empty($input->get("data")["data"])       ? $input->get("data")["data"]               : NULL;
                 $subject    = !empty($input->get("data")["onderwerp"])  ? escape($input->get("data")["onderwerp"])  : NULL;
                 
@@ -226,6 +229,7 @@
                     $dataArray  =   [
                         "agendaUuid" =>  "{$settings->MakeUuid()}",
                         "userUuid"   =>  "{$session->get('userUuid')->uuid}",
+                        "client"     =>  "{$client}",
                         "dateUuid"   =>  "{$dateUuid}",
                         "time"       =>  "{$time}",                        
                         "message"    =>  "{$message}",

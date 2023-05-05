@@ -14,7 +14,7 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
                     },
 
                     "mainpage" : {
-                        templateUrl : "./html/home/home.html?v="+controler.version,
+                        templateUrl : "./html/admin/home.html?v="+controler.version,
                         controller  : "adminController",
                     },
                 }

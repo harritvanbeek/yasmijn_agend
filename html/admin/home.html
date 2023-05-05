@@ -20,6 +20,15 @@
         </div>
         
         <div class="col-md-12">
+                <i class="fas fa-user prefix"></i>    
+                <label for="onderwerp">Clienten</label>
+                <select class="form-control browser-default" ng-model="from.client">
+                    <option ng-repeat="client in clienten" value="{{client.uuid}}" ng-bind-html="client.client"></option>    
+                </select>                     
+        </div>
+
+
+        <div class="col-md-12">
             <div class="md-form form-sm" id="subject">
                 <i class="fas fa-envelope prefix"></i>    
                 <label for="onderwerp">Onderwerp</label>

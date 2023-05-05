@@ -1,7 +1,10 @@
 "use strict";
 boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$stateParams', function($scope, $http, $window, $state, $stateParams) {
+         console.log($state.$current.url.pattern.split("/")[1] + " = case name");
+         console.log($state.router.globals.$current.views.mainpage.controller + " is Loaded");
+
          var URI       =   controler.view + "agenda/index.php";  
-         var action    =   $state.$current.name;
+         var action    =   $state.$current.url.pattern.split("/")[1];
 
 
          switch(action){
@@ -9,7 +12,6 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
                var VALUES = [{data:$stateParams.uuid}];
                $http.post(URI, VALUES, {params:{action:"thisAppointment"}}).then(function(data){
                      if(data.status === 200){
-                        console.log(data.data);
                         $scope.from = data.data; 
 
                         $('#datum').find('.fas').addClass('active');                      
@@ -29,7 +31,8 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
                      if(data){
                         var VALUES = [{data:data}];
                         $http.post(URI, VALUES, {params:{action:"newAppointment"}}).then(function(data){
-                              if(data.status === 200){                                     
+                              if(data.status === 200){ 
+                                 console.log(data.data);                                    
                                  switch(data.data.data){
                                     case "success":
                                        $state.go(data.data.dataUri); 
@@ -46,6 +49,13 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
          }
 
 
+         $http.get(URI, {params:{action:"getClienten"}}).then(function(data){
+              if(data.status === 200){
+                  if(data.data !== 'null'){
+                     $scope.clienten = data.data;                                                                  
+                  }
+              };
+         });
 
          checkUserLogin();
          function checkUserLogin(){

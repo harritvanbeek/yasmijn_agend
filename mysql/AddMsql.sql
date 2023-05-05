@@ -1,0 +1,1 @@
+ALTER TABLE `agenda_dates` ADD `clientUuid` CHAR(36) NOT NULL AFTER `userUuid`;

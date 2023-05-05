@@ -43,8 +43,10 @@ class agenda{
     public function thisAppointment($date = ""){
         $this->array =  ["dates" => "{$date}"];
         $this->query = "SELECT * 
-                                FROM `agenda_dates` 
-                                WHERE `agendaUuid` = :dates ";
+                                FROM `agenda_dates`
+                                    LEFT JOIN `clients`
+                                    ON `clients`.`uuid` = `agenda_dates`.`clientUuid`                                     
+                                WHERE `agenda_dates`.`agendaUuid` = :dates ";
         return $this->_DB->get($this->query, $this->array);
     }
 
@@ -77,7 +79,11 @@ class agenda{
 
     public function getAppointment($data = ""){
         $this->array = ["uuid" => "{$data}"];
-        $this->query = "SELECT * FROM `agenda_dates` WHERE `dateUuid` = :uuid ";
+        $this->query = "SELECT * 
+                            FROM `agenda_dates` 
+                                LEFT JOIN `clients`
+                                ON `clients`.`uuid` = `agenda_dates`.`clientUuid`
+                            WHERE `agenda_dates`.`dateUuid` = :uuid ";
         return $this->_DB->getAll($this->query, $this->array);
     }
 
@@ -96,8 +102,8 @@ class agenda{
 
     public function post($data = []){
         $this->query = "INSERT INTO `agenda_dates` 
-                            (`agendaUuid`, `userUuid`, `dateUuid`, `time`, `message`, `subject`) 
-                            VALUES (:agendaUuid, :userUuid, :dateUuid, :time, :message, :subject)";
+                            (`agendaUuid`, `userUuid`, `dateUuid`, `clientUuid`, `time`, `message`, `subject`) 
+                            VALUES (:agendaUuid, :userUuid, :dateUuid, :client, :time, :message, :subject)";
         return $this->_DB->action($this->query, $data);
     }
 }
