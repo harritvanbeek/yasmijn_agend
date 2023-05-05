@@ -77,6 +77,24 @@ class agenda{
         return $this->_DB->getAll($this->query);
     }
 
+    public function getWeeks(){
+        $this->query = "SELECT * 
+                            FROM `agenda_dates` 
+                            ORDER BY `agenda_dates`.`week` DESC                            
+                        ";
+        return $this->_DB->getAll($this->query);
+    }
+
+
+    public function getMonth(){
+        $this->query = "SELECT * 
+                            FROM `agenda_dates` 
+                            ORDER BY `agenda_dates`.`month` DESC                            
+                        ";
+        return $this->_DB->getAll($this->query);
+    }
+
+
     public function getAppointment($data = ""){
         $this->array = ["uuid" => "{$data}"];
         $this->query = "SELECT * 

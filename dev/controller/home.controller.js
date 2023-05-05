@@ -92,14 +92,8 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
             break;
 
             case "agenda" :
-                $http.get(URI, {params:{action:"getAppointments"}}).then(function(data){
-                    if(data.status === 200){
-                        if(data.data !== 'null'){
-                            $scope.agenda = data.data;                                                                  
-                        }
-                    };
-                });
-
+                getData("getAppointments")
+                
                 $scope.edit = function(data){
                     $state.go('update', {uuid:data.appointment.agendaUuid})
                 }
@@ -134,7 +128,20 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
                 }
 
                 $scope.setTab = function(index){                    
-                    $scope.thisTab = index;                   
+                    $scope.thisTab = index; 
+                    switch(index){
+                        case "1" :
+                            getData("getAppointments");
+                        break;
+
+                        case "2" :
+                            getData("getWeeks");
+                        break;
+
+                        case "3" :
+                            getData("getMonths");
+                        break;
+                    }                                
                 } 
 
                 $scope.getTab = function(index){
@@ -145,7 +152,15 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
             break;
         } 
         
-        
+        function getData(location){
+            $http.get(URI, {params:{action:location}}).then(function(data){
+                if(data.status === 200){
+                    if(data.data !== 'null'){
+                        $scope.items = data.data;                                                                  
+                    }
+                };
+            });
+        }
 
         var tagContainer      = document.querySelector('.tag-container');
         var input             = document.querySelector('.inputTag');

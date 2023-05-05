@@ -19,25 +19,25 @@
         <div class="col-md-4">
             <botton ng-click="setTab('1')" class="btn btn-sm btn-outline-indigo btn-rounded">Dag</botton>
             <botton ng-click="setTab('2')" class="btn btn-sm btn-outline-indigo btn-rounded">Week</botton>
-            <botton ng-click="setTab('2')" class="btn btn-sm btn-outline-indigo btn-rounded">Maand</botton>
+            <botton ng-click="setTab('3')" class="btn btn-sm btn-outline-indigo btn-rounded">Maand</botton>
             <hr>
             
             <div ng-show="getTab('1')" class="list-group">
-                <a ng-repeat="item in agenda" class="list-group-item list-group-item-action" ng-click="setTable($index, item)">
+                <a ng-repeat="item in items" class="list-group-item list-group-item-action" ng-click="setTable($index, item)">
                     <strong ng-bind-html="item.dates"></strong>                        
                 </a>
             </div>
 
             <div ng-show="getTab('2')" class="list-group">
-                <a class="list-group-item list-group-item-action" ng-click="setTable($index, item)">
-                    <strong>Update incoming</strong>                        
+                <a ng-repeat="item in items" class="list-group-item list-group-item-action" ng-click="setTable($index, item)">
+                    <strong ng-bind-html="item.week"></strong>                        
                 </a>
             </div>
 
 
             <div ng-show="getTab('3')" class="list-group">
-                <a class="list-group-item list-group-item-action" ng-click="setTable($index, item)">
-                    <strong>Update incoming</strong>                        
+                <a ng-repeat="item in items" class="list-group-item list-group-item-action" ng-click="setTable($index, item)">
+                    <strong ng-bind-html="item.month"></strong>                         
                 </a>
             </div>
         </div>

@@ -157,6 +157,28 @@
                 echo json_encode($dataArray); 
         break;
 
+        case "getWeeks" :
+            foreach($agenda->getWeeks() as $item){ 
+                if($item->week){
+                    $dataArray[] = [
+                        "week" => "Week {$item->week}",                    
+                    ];                                                                                                                
+                }               
+            }
+                echo json_encode($dataArray);            
+        break;
+
+        case "getMonths" :
+            foreach($agenda->getMonth() as $item){ 
+                if($item->month){
+                    $dataArray[] = [
+                        "month" => "{$item->month}",                    
+                    ];                                                                                                                
+                }               
+            }
+                echo json_encode($dataArray); 
+        break;
+
         case "thisAppointment" :                
             if($input->exist()){
                 $uuid   = !empty($input->get("data")) ? $input->get("data") : NULL;
