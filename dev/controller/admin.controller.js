@@ -24,6 +24,10 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
                         $('#subject').find('label').addClass('active');                       
                      }
                }); 
+
+               $scope.save = function(data){
+                  console.log("update working inprogress")
+               }
             break;
 
             case "admin" :

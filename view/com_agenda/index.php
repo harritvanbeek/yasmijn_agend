@@ -201,7 +201,8 @@
                 $client     = !empty($input->get("data")["client"])     ? $input->get("data")["client"]             : NULL;
                 $message    = !empty($input->get("data")["data"])       ? $input->get("data")["data"]               : NULL;
                 $subject    = !empty($input->get("data")["onderwerp"])  ? escape($input->get("data")["onderwerp"])  : NULL;
-                
+                $setDate    = new DateTime($date);
+                                       
                 if(empty($time) === true)        { $errors = ["Tijd is een verplichte veld!"]; }
                 elseif(empty($date) === true)    { $errors = ["Datum is een verplichte veld!"]; }
                 elseif(empty($message) === true) { $errors = ["Bericht is een verplichte veld!"]; }
@@ -231,11 +232,15 @@
                         "userUuid"   =>  "{$session->get('userUuid')->uuid}",
                         "client"     =>  "{$client}",
                         "dateUuid"   =>  "{$dateUuid}",
+                        
+                        "week"       =>  $setDate->format("W"),                        
+                        "month"      =>  $setDate->format("M"),  
+
                         "time"       =>  "{$time}",                        
                         "message"    =>  "{$message}",
                         "subject"    =>  "{$subject}",
                     ];
-                    
+                       
                     if($agenda->post($dataArray)){
                         $dataArray =    [
                             "data"          =>  "success",

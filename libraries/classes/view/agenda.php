@@ -102,8 +102,8 @@ class agenda{
 
     public function post($data = []){
         $this->query = "INSERT INTO `agenda_dates` 
-                            (`agendaUuid`, `userUuid`, `dateUuid`, `clientUuid`, `time`, `message`, `subject`) 
-                            VALUES (:agendaUuid, :userUuid, :dateUuid, :client, :time, :message, :subject)";
+                            (`agendaUuid`, `userUuid`, `dateUuid`, `clientUuid`, `week`, `month`, `time`, `message`, `subject`) 
+                            VALUES (:agendaUuid, :userUuid, :dateUuid, :client, :week, :month, :time, :message, :subject)";
         return $this->_DB->action($this->query, $data);
     }
 }
