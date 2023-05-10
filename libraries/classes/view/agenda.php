@@ -77,19 +77,41 @@ class agenda{
         return $this->_DB->getAll($this->query);
     }
 
+    public function getByWeeks($week = ""){
+        $this->week  = ["week" => "{$week}"];
+        $this->query = "SELECT * 
+                            FROM `agenda_dates` 
+                                LEFT JOIN `clients`
+                                ON `clients`.`uuid` = `agenda_dates`.`clientUuid`
+                            WHERE `agenda_dates`.`week` = :week ";
+        return $this->_DB->getAll($this->query, $this->week);
+    }
+
     public function getWeeks(){
         $this->query = "SELECT * 
                             FROM `agenda_dates` 
-                            ORDER BY `agenda_dates`.`week` DESC                            
+                            ORDER BY `agenda_dates`.`week` ASC                            
                         ";
         return $this->_DB->getAll($this->query);
     }
 
 
+    public function getByMonth($month = ""){
+        $this->month  = ["month" => "{$month}"];      
+        $this->query = "SELECT * 
+                            FROM `agenda_dates` 
+                                LEFT JOIN `clients`
+                                ON `clients`.`uuid` = `agenda_dates`.`clientUuid`
+                            WHERE `agenda_dates`.`month` = :month ";
+        return $this->_DB->getAll($this->query, $this->month);
+
+    }
+
     public function getMonth(){
         $this->query = "SELECT * 
                             FROM `agenda_dates` 
-                            ORDER BY `agenda_dates`.`month` DESC                            
+                            GROUP BY `month`     
+                            ORDER BY `agenda_dates`.`month` DESC 
                         ";
         return $this->_DB->getAll($this->query);
     }

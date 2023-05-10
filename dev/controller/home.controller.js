@@ -115,13 +115,14 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
                 }
 
                 $scope.setTable = function(index, item){
+                    //console.log(index);
                     if(item){
                         var VALUES = [{data:item}];
                         $http.post(URI, VALUES, {params:{action:"getAppointment"}}).then(function(data){
                             if(data.status === 200){
                                 $scope.appointment = data.data;
                                 $scope.getTable = true;
-                                //console.log(data.data);
+                                console.log(data.data);
                             }
                         });                
                     }

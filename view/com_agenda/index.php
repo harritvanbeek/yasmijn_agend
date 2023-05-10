@@ -127,19 +127,50 @@
 
         case "getAppointment" :
             if($input->exist()){
-                $post_uuid = !empty($input->get("data")["post_uuid"]) ? $input->get("data")["post_uuid"] : NULL;
-                foreach($agenda->getAppointment($post_uuid) as $item){
-                   $dataArray[] = [
-                        "appointment"  => [
-                            "agendaUuid"    =>  "{$item->agendaUuid}",
-                            "userUuid"      =>  "{$item->userUuid}",
-                            "time"          =>  date("H:i", strtotime($item->time)),
-                            "message"       =>  "{$item->message}",
-                            "subject"       =>  "{$item->subject}",
-                            "client"        =>  "{$item->client}",
-                        ],                   
-                   ]; 
-                };
+                $week       = !empty($input->get("data")["weekID"])     ? $input->get("data")["weekID"]       : null; 
+                $month      = !empty($input->get("data")["month"])      ? $input->get("data")["month"]      : null; 
+                $post_uuid  = !empty($input->get("data")["post_uuid"])  ? $input->get("data")["post_uuid"]  : NULL;
+                
+                if(!empty($post_uuid)){                    
+                    foreach($agenda->getAppointment($post_uuid) as $item){
+                       $dataArray[] = [
+                            "appointment"  => [
+                                "agendaUuid"    =>  "{$item->agendaUuid}",
+                                "userUuid"      =>  "{$item->userUuid}",
+                                "time"          =>  date("H:i", strtotime($item->time)),
+                                "message"       =>  "{$item->message}",
+                                "subject"       =>  "{$item->subject}",
+                                "client"        =>  "{$item->client}",
+                            ],                   
+                       ]; 
+                    };
+                }elseif(!empty($month)){
+                    foreach($agenda->getByMonth($month) as $item){
+                       $dataArray[] = [
+                            "appointment"  => [
+                                "agendaUuid"    =>  "{$item->agendaUuid}",
+                                "userUuid"      =>  "{$item->userUuid}",
+                                "time"          =>  date("H:i", strtotime($item->time)),
+                                "message"       =>  "{$item->message}",
+                                "subject"       =>  "{$item->subject}",
+                                "client"        =>  "{$item->client}",
+                            ],                   
+                       ]; 
+                    };
+                }else{
+                    foreach($agenda->getByWeeks($week) as $item){
+                       $dataArray[] = [
+                            "appointment"  => [
+                                "agendaUuid"    =>  "{$item->agendaUuid}",
+                                "userUuid"      =>  "{$item->userUuid}",
+                                "time"          =>  date("H:i", strtotime($item->time)),
+                                "message"       =>  "{$item->message}",
+                                "subject"       =>  "{$item->subject}",
+                                "client"        =>  "{$item->client}",
+                            ],                   
+                       ]; 
+                    };
+                }
 
                 if(!empty($dataArray)){
                     echo json_encode($dataArray); 
@@ -162,6 +193,7 @@
                 if($item->week){
                     $dataArray[] = [
                         "week" => "Week {$item->week}",                    
+                        "weekID" => "{$item->week}",                    
                     ];                                                                                                                
                 }               
             }
