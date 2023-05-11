@@ -85,6 +85,7 @@
 
         case "changePassword" :
             if($input->exist()){
+
                 $oldPassword    = !empty($input->get("data")["old_password"])    ? escape($input->get("data")["old_password"])      : NULL;
                 $newPassword    = !empty($input->get("data")["new_password"])    ? escape($input->get("data")["new_password"])      : NULL;
                 $repeatPassword = !empty($input->get("data")["repeat_password"]) ? escape($input->get("data")["repeat_password"])   : NULL;

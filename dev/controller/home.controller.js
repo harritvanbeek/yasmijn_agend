@@ -58,11 +58,12 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
                 }             
             break;
 
-            case "changePassword" :
+            case "change-password" :                   
                 $scope.updatePassword = function(item){
                     if(item){
                         var VALUES = [{data:item}];
                         $http.post(URI, VALUES, {params:{action:"changePassword"}}).then(function(data){
+                                console.log(data.data);
                                 switch(data.data.data){
                                    case "success":
                                       swal({
