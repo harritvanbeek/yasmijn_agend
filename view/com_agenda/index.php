@@ -45,7 +45,6 @@
                
                 if(empty($client)){$errors = ["je hebt niets opgegeven!"];}
                 elseif($agenda->clientExist($client)){$errors = ["Client bestaat al!"];}
-               
 
                 if(!empty($input->exist()) and empty($errors)){
                     if($uuid){
@@ -117,6 +116,51 @@
                         "data"          =>  "error",
                         "dataContent"   =>  "{$errors[0]}",
                     ];
+                }
+
+                if(!empty($dataArray)){
+                    echo json_encode($dataArray); 
+                }
+            }
+        break;
+
+        case "nowAppointment" :
+                $date = date("Y-m-d", getdate()[0]); 
+                if(!empty($date)){
+                    foreach($agenda->nowAppointment($date) as $item){
+                       $dataArray[] = [
+                            "appointment"  => [
+                                "agendaUuid"    =>  "{$item->agendaUuid}",
+                                "userUuid"      =>  "{$item->userUuid}",
+                                "time"          =>  date("H:i", strtotime($item->time)),
+                                "message"       =>  "{$item->message}",
+                                "subject"       =>  "{$item->subject}",
+                                "client"        =>  "{$item->client}",
+                            ],                   
+                       ]; 
+                    };
+                }
+                if(!empty($dataArray)){
+                    echo json_encode($dataArray); 
+                }
+        break;
+
+        case "filterClient" :
+            if($input->exist()){
+                $client   = !empty($input->get("data")["client"])     ? $input->get("data")["client"]    : null;
+                if(!empty($client)){
+                    foreach($agenda->filterClient($client) as $item){
+                       $dataArray[] = [
+                            "appointment"  => [
+                                "agendaUuid"    =>  "{$item->agendaUuid}",
+                                "userUuid"      =>  "{$item->userUuid}",
+                                "time"          =>  date("H:i", strtotime($item->time)),
+                                "message"       =>  "{$item->message}",
+                                "subject"       =>  "{$item->subject}",
+                                "client"        =>  "{$item->client}",
+                            ],                   
+                       ]; 
+                    };
                 }
 
                 if(!empty($dataArray)){

@@ -92,7 +92,23 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
             break;
 
             case "agenda" :
-                getData("getAppointments")
+                
+                getData("getAppointments");
+                getClienten("getClienten");
+                getAppointment("nowAppointment");
+
+
+                $scope.filterClient = function(data){
+                    if(data){
+                        var VALUES = [{data:data}];
+                        $http.post(URI, VALUES, {params:{action:"filterClient"}}).then(function(data){
+                             if(data.status === 200){
+                                 $scope.appointment = data.data;                                                                
+                             }
+                       });
+                    }
+                }
+
                 
                 $scope.edit = function(data){
                     $state.go('update', {uuid:data.appointment.agendaUuid})
@@ -115,14 +131,12 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
                 }
 
                 $scope.setTable = function(index, item){
-                    //console.log(index);
                     if(item){
                         var VALUES = [{data:item}];
                         $http.post(URI, VALUES, {params:{action:"getAppointment"}}).then(function(data){
                             if(data.status === 200){
                                 $scope.appointment = data.data;
-                                $scope.getTable = true;
-                                console.log(data.data);
+                                $scope.getTable = true;                                
                             }
                         });                
                     }
@@ -153,6 +167,27 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
             break;
         } 
         
+        function getAppointment(location){
+            console.log(location);
+            
+            $http.get(URI, {params:{action:location}}).then(function(data){
+                if(data.status === 200){
+                        console.log(data.data);
+                    if(data.data !== 'null'){ 
+                        $scope.appointment = data.data; 
+                    }
+                };
+            });  
+        }
+
+        function getClienten(location){
+            $http.get(URI, {params:{action:location}}).then(function(data){
+                if(data.status === 200){
+                    if(data.data !== 'null'){ $scope.clienten = data.data; }
+                };
+            });  
+        }
+
         function getData(location){
             $http.get(URI, {params:{action:location}}).then(function(data){
                 if(data.status === 200){

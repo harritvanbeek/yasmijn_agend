@@ -21,6 +21,13 @@
             <botton ng-click="setTab('2')" class="btn btn-sm btn-outline-indigo btn-rounded">Week</botton>
             <botton ng-click="setTab('3')" class="btn btn-sm btn-outline-indigo btn-rounded">Maand</botton>
             <hr>
+            <select class="form-control browser-default" ng-model="from.client" ng-change="filterClient(from)" >
+                <option value="">Reset clienten</option>    
+                <option ng-repeat="client in clienten" value="{{client.uuid}}" ng-bind-html="client.client"></option>    
+            </select>                     
+            <hr>
+            
+            
             
             <div ng-show="getTab('1')" class="list-group">
                 <a ng-repeat="item in items" class="list-group-item list-group-item-action" ng-click="setTable($index, item)">

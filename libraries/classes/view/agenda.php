@@ -117,6 +117,31 @@ class agenda{
     }
 
 
+    public function nowAppointment($data = ""){
+        $this->array = ["dates" => "{$date}"];
+        $this->query = "SELECT * 
+                            FROM `agenda_appointment` 
+                                LEFT JOIN `agenda_dates`
+                                ON `agenda_appointment`.`uuid` = `agenda_dates`.`dateUuid`
+
+                                LEFT JOIN `clients`
+                                ON `clients`.`uuid` = `agenda_dates`.`clientUuid`
+                            
+                            WHERE `agenda_appointment`.`date` = :dates
+                        ";
+        return $this->_DB->getAll($this->query, $this->array);
+    }
+
+    public function filterClient($data = ""){
+        $this->array = ["clientUuid" => "{$data}"];
+        $this->query = "SELECT * 
+                            FROM `agenda_dates` 
+                                LEFT JOIN `clients`
+                                ON `clients`.`uuid` = `agenda_dates`.`clientUuid`
+                            WHERE `agenda_dates`.`clientUuid` = :clientUuid ";
+        return $this->_DB->getAll($this->query, $this->array);
+    }
+
     public function getAppointment($data = ""){
         $this->array = ["uuid" => "{$data}"];
         $this->query = "SELECT * 
