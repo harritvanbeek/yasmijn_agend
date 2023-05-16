@@ -82,7 +82,7 @@ class agenda{
         $this->query = "SELECT * 
                             FROM `agenda_dates` 
                                 LEFT JOIN `clients`
-                                ON `clients`.`uuid` = `agenda_dates`.`clientUuid`
+                                ON `clients`.`uuid` = `agenda_dates`.`clientUuid`                                
                             WHERE `agenda_dates`.`week` = :week ";
         return $this->_DB->getAll($this->query, $this->week);
     }
@@ -90,6 +90,7 @@ class agenda{
     public function getWeeks(){
         $this->query = "SELECT * 
                             FROM `agenda_dates` 
+                            GROUP BY `agenda_dates`.`week`
                             ORDER BY `agenda_dates`.`week` ASC                            
                         ";
         return $this->_DB->getAll($this->query);
