@@ -54,6 +54,7 @@
                 <thead>
                     <tr>
                         <th>Tijd</th>
+                        <th>Datum</th>
                         <th>Bericht</th>
                         <th>onderwerp</th>
                         <th>Client</th>
@@ -63,7 +64,8 @@
                 <tbody>
                     <tr ng-repeat="items in appointment | filter:search">
                         <td ng-bind-html="items.appointment.time"></td>
-                        <td ng-bind-html="items.appointment.message"></td>
+                        <td ng-bind-html="items.appointment.date"></td>
+                        <td><div title="{{items.appointment.message}}" ng-bind-html="items.appointment.message"></div></td>
                         <td ng-bind-html="items.appointment.subject"></td>
                         <td ng-bind-html="items.appointment.client"></td>
                         <td>

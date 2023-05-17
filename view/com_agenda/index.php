@@ -182,6 +182,7 @@
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
+                                "date"          =>  date("D d F", $item->date),
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
@@ -195,8 +196,9 @@
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
+                                "date"          =>  date("D d F", $item->date),                                
                                 "time"          =>  date("H:i", strtotime($item->time)),
-                                "message"       =>  "{$item->message}",
+                                "message"       =>  {$item->message}",
                                 "subject"       =>  "{$item->subject}",
                                 "client"        =>  "{$item->client}",
                             ],                   
@@ -208,6 +210,7 @@
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
+                                "date"          =>  date("D d F", $item->date),                                
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
