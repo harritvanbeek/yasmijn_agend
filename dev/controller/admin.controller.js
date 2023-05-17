@@ -26,7 +26,24 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
                }); 
 
                $scope.save = function(data){
-                  console.log("update working inprogress")
+                  if(data){
+                     var VALUES = [{data:data}];
+                     $http.post(URI, VALUES, {params:{action:"updateAppointment"}}).then(function(data){
+                        console.log(data.data);
+                        switch(data.data.data){
+                           case "success":
+                              $state.go(data.data.dataUri); 
+                           break;
+
+                           case "errors":
+                              swal("Oeps!", data.data.dataContent, "error"); 
+                           break;
+                        }
+                     });
+                  }else{
+                     //error
+                     swal("Oeps!", "Alle velden zijn leeg!", "error");
+                  }
                }
             break;
 
@@ -41,12 +58,16 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
                                     case "success":
                                        $state.go(data.data.dataUri); 
                                     break;
+
+                                    case "errors":
+                                       swal("Oeps!", data.data.dataContent, "error"); 
+                                    break;
                                  }
                               }
                         });                  
                      }else{
                         //error
-                        swal("Oeps!", data.data.dataContent, "error");
+                        swal("Oeps!", "Alle velden zijn leeg!", "error");
                      };
                   }
             break;

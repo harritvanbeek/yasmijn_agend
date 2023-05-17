@@ -166,6 +166,22 @@ class agenda{
         return $this->_DB->action($this->query, $data);
     }
 
+    public function update($data = []){
+        $this->query = "UPDATE `agenda_dates`
+                            SET `userUuid`   = '{$data['userUuid']}',
+                                `dateUuid`   = '{$data['dateUuid']}',
+                                `clientUuid` = '{$data['clientUuid']}',
+                                `week`       = '{$data['week']}',
+                                `month`      = '{$data['month']}',
+                                `time`       = '{$data['time']}',
+                                `message`    = '{$data['message']}',
+                                `subject`    = '{$data['subject']}'
+                            
+                            WHERE `agendaUuid` = '{$data['agendaUuid']}' 
+                        ";
+        return $this->_DB->action($this->query);
+    }
+
     public function post($data = []){
         $this->query = "INSERT INTO `agenda_dates` 
                             (`agendaUuid`, `userUuid`, `dateUuid`, `clientUuid`, `week`, `month`, `time`, `message`, `subject`) 
