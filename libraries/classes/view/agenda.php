@@ -79,10 +79,26 @@ class agenda{
 
     public function getByWeeks($week = ""){
         $this->week  = ["week" => "{$week}"];
+
+        $this->select = "
+                        `agenda_dates`.`agendaUuid`,
+                        `agenda_dates`.`userUuid`,
+                        `agenda_dates`.`time`,
+                        `agenda_dates`.`message`,
+                        `agenda_dates`.`subject`,
+                        `clients`.`client`,
+                        `agenda_appointment`.`date`
+                        ";
+
         $this->query = "SELECT * 
                             FROM `agenda_dates` 
+                                
                                 LEFT JOIN `clients`
-                                ON `clients`.`uuid` = `agenda_dates`.`clientUuid`                                
+                                ON `clients`.`uuid` = `agenda_dates`.`clientUuid`
+
+                                LEFT JOIN `agenda_appointment`
+                                ON `agenda_appointment`.`uuid` = `agenda_dates`.`dateUuid`
+
                             WHERE `agenda_dates`.`week` = :week ";
         return $this->_DB->getAll($this->query, $this->week);
     }
@@ -98,11 +114,26 @@ class agenda{
 
 
     public function getByMonth($month = ""){
-        $this->month  = ["month" => "{$month}"];      
-        $this->query = "SELECT * 
+        $this->month  = ["month" => "{$month}"]; 
+
+        $this->select = "
+                        `agenda_dates`.`agendaUuid`,
+                        `agenda_dates`.`userUuid`,
+                        `agenda_dates`.`time`,
+                        `agenda_dates`.`message`,
+                        `agenda_dates`.`subject`,
+                        `clients`.`client`,
+                        `agenda_appointment`.`date`
+                        ";
+
+        $this->query = "SELECT {$this->select} 
                             FROM `agenda_dates` 
                                 LEFT JOIN `clients`
                                 ON `clients`.`uuid` = `agenda_dates`.`clientUuid`
+
+                                LEFT JOIN `agenda_appointment`
+                                ON `agenda_appointment`.`uuid` = `agenda_dates`.`dateUuid`
+
                             WHERE `agenda_dates`.`month` = :month ";
         return $this->_DB->getAll($this->query, $this->month);
 
@@ -145,10 +176,26 @@ class agenda{
 
     public function getAppointment($data = ""){
         $this->array = ["uuid" => "{$data}"];
-        $this->query = "SELECT * 
+        
+        $this->select = "
+                        `agenda_dates`.`agendaUuid`,
+                        `agenda_dates`.`userUuid`,
+                        `agenda_dates`.`time`,
+                        `agenda_dates`.`message`,
+                        `agenda_dates`.`subject`,
+                        `clients`.`client`,
+                        `agenda_appointment`.`date`
+                        ";
+
+        $this->query = "SELECT {$this->select} 
                             FROM `agenda_dates` 
+                                
+                                LEFT JOIN `agenda_appointment`
+                                ON `agenda_appointment`.`uuid` = `agenda_dates`.`dateUuid`
+
                                 LEFT JOIN `clients`
                                 ON `clients`.`uuid` = `agenda_dates`.`clientUuid`
+                            
                             WHERE `agenda_dates`.`dateUuid` = :uuid ";
         return $this->_DB->getAll($this->query, $this->array);
     }

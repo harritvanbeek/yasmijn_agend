@@ -176,13 +176,15 @@
                 $month      = !empty($input->get("data")["month"])      ? $input->get("data")["month"]      : null; 
                 $post_uuid  = !empty($input->get("data")["post_uuid"])  ? $input->get("data")["post_uuid"]  : NULL;
                 
-                if(!empty($post_uuid)){                    
+                if(!empty($post_uuid)){ 
+                    
+
                     foreach($agenda->getAppointment($post_uuid) as $item){
                        $dataArray[] = [
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
-                                "date"          =>  date("D d F", $item->date),
+                                "date"          =>  date("D d F", strtotime($item->date)),
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
@@ -196,9 +198,9 @@
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
-                                "date"          =>  date("D d F", $item->date),                                
+                                "date"          =>  date("D d F", strtotime($item->date)),                                
                                 "time"          =>  date("H:i", strtotime($item->time)),
-                                "message"       =>  {$item->message}",
+                                "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
                                 "client"        =>  "{$item->client}",
                             ],                   
@@ -210,7 +212,7 @@
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
-                                "date"          =>  date("D d F", $item->date),                                
+                                "date"          =>  date("D d F", strtotime($item->date)),                                
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
