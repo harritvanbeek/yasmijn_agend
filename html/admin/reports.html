@@ -1,0 +1,33 @@
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">            
+                    <a ui-sref="new_report" class="btn btn-success btn-sm float-right">Niewe report</a>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Postdate</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr ng-repeat="report in reports">
+                                <td ng-bind-html="report.title"></td>
+                                <td ng-bind-html="report.post_date"></td>
+                                <td>
+                                    <!-- <span>Lezen</span> | <span>Verwijderen</span> -->
+                                </td>
+                            </tr>    
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

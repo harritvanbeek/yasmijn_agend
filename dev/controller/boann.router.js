@@ -83,6 +83,36 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
             })
 
             .state({
+                name:"reports",
+                url: "/reports/",
+                views : {
+                    "navbar" : {
+                        templateUrl : "./html/navbar.html?v="+controler.version,                        
+                    },
+
+                    "mainpage" : {
+                        templateUrl : "./html/admin/reports.html?v="+controler.version,
+                        controller  : "reportsController",
+                    },
+                }
+            })
+
+            .state({
+                name:"new_report",
+                url: "/new-report/",
+                views : {
+                    "navbar" : {
+                        templateUrl : "./html/navbar.html?v="+controler.version,                        
+                    },
+
+                    "mainpage" : {
+                        templateUrl : "./html/admin/new_report.html?v="+controler.version,
+                        controller  : "reportsController",
+                    },
+                }
+            })
+
+            .state({
                 name:"login",
                 url: "/login/",
                 views : {

@@ -1,0 +1,19 @@
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="md-form form-sm" id="subject">
+                <i class="fas fa-pen prefix"></i>    
+                <label for="onderwerp">Title</label>
+                <input id="onderwerp" type="text" class="form-control" ng-model="from.title"> 
+            </div>         
+        </div>
+
+        <div class="col-md-12">
+            <label>Message</label>
+            <textarea class="form-control" ui-tinymce="tinymceOptions" ng-model="from.message"></textarea>           
+        </div>
+    </div>
+
+    <button class="btn btn-success" ng-click="save(from)">Opslaan</button>
+</div>

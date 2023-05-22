@@ -1,2 +1,209 @@
-!function(){"use strict";function e(e,t,a,n){return{restrict:"A",require:"ngModel",scope:{dateFormat:"=?",allowFuture:"=?",minDate:"=?",maxDate:"=?"},link:function(s,r,i,o){function c(e){u===e.target||u[0].contains(e.target)||e.target===r[0]||(a.off("click",c),s.$apply(function(){s.calendarCursor=p?p:h,s.pickerDisplayed=s.showMonthsList=s.showYearsList=!1}))}function l(){r.wrap('<div class="ng-flat-datepicker-wrapper"></div>'),t(u)(s),r.after(u),angular.isDefined(o.$modelValue)&&moment.isDate(o.$modelValue)&&(s.calendarCursor=o.$modelValue)}function d(e){var t=[],e=moment.utc(e),a=moment(e).date(1),n=moment(e).date(e.daysInMonth()),r=moment(a),i=moment(n);r=0===a.weekday()?r:r.weekday(0),i=6===n.weekday()?i:i.weekday(6);for(var o=[],c=moment(r);c.isBefore(moment(i).add(1,"days"));c.add(1,"days")){var l=!s.minDate||c.isAfter(s.minDate,"day"),d=!s.maxDate||c.isBefore(s.maxDate,"day"),m=c.isAfter(h),u=s.allowFuture||!m,g={date:moment(c).toDate(),isToday:c.isSame(h,"day"),isInMonth:c.isSame(a,"month"),isSelected:c.isSame(p,"day"),isSelectable:l&&d&&u};o.push(g),(6===c.weekday()||c===i)&&(t.push(o),o=[])}return t}function m(){s.currentWeeks.forEach(function(e,t){e.forEach(function(e,a){s.currentWeeks[t][a].isSelected=!1})})}var u=angular.element(e.get("datepicker.html")),p="",h=moment.utc();s.allowFuture=angular.isDefined(s.allowFuture)?s.allowFuture:!0,s.dateFormat=angular.isDefined(s.dateFormat)?s.dateFormat:!1,s.minDate=angular.isDefined(s.minDate)?moment.utc(s.minDate).subtract(1,"day"):!1,s.maxDate=angular.isDefined(s.maxDate)?moment.utc(s.maxDate).add(1,"day"):!1,s.calendarCursor=h,s.currentWeeks=[],s.daysNameList=n.getDaysNames(),s.monthsList=moment.months(),s.yearsList=n.getYearsList(),s.pickerDisplayed=!1,s.$watch(function(){return o.$modelValue},function(e){e&&(p=s.calendarCursor=moment.utc(e,s.dateFormat))}),s.$watch("calendarCursor",function(e){s.currentWeeks=d(e)}),r.bind("click",function(e){s.$apply(function(){s.pickerDisplayed=!0,a.on("click",c)})}),l(),s.prevMonth=function(){s.calendarCursor=moment(s.calendarCursor).subtract(1,"months")},s.nextMonth=function(){s.calendarCursor=moment(s.calendarCursor).add(1,"months")},s.selectMonth=function(e){s.showMonthsList=!1,s.calendarCursor=moment(s.calendarCursor).month(e)},s.selectYear=function(e){s.showYearsList=!1,s.calendarCursor=moment(s.calendarCursor).year(e)},s.selectDay=function(e){(!e.isFuture||s.allowFuture&&e.isFuture)&&(m(),e.isSelected=!0,o.$setViewValue(moment.utc(e.date).format(s.dateFormat)),o.$render(),s.pickerDisplayed=!1)}}}}angular.module("ngFlatDatepicker",[]).directive("ngFlatDatepicker",e),e.$inject=["$templateCache","$compile","$document","datesCalculator"]}(),function(){"use strict";function e(){function e(){for(var e=[],t=2005;t<=moment().year()+1;t++)e.push(t);return e}function t(){for(var e=[],t=0;7>t;t++)e.push(moment().weekday(t).format("ddd"));return e}return{getYearsList:e,getDaysNames:t}}angular.module("ngFlatDatepicker").factory("datesCalculator",e)}(),angular.module("ngFlatDatepicker").run(["$templateCache",function(e){e.put("datepicker.html",'<div class="ng-flat-datepicker" ng-show="pickerDisplayed">\n    <div class="ng-flat-datepicker-table-header-bckgrnd"></div>\n    <table>\n        <caption>\n            <div class="ng-flat-datepicker-header-wrapper">\n                <span class="ng-flat-datepicker-arrow ng-flat-datepicker-arrow-left" ng-click="prevMonth()">\n                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="50" y="50" viewBox="0 0 100 100" xml:space="preserve">\n                        <polygon points="64.8,36.2 35.2,6.5 22.3,19.4 51.9,49.1 22.3,78.8 35.2,91.7 77.7,49.1" />\n                    </svg>\n                </span>\n                <div class="ng-flat-datepicker-header-year">\n                    <div class="ng-flat-datepicker-custom-select-box" outside-click="showMonthsList = false">\n                        <span class="ng-flat-datepicker-custom-select-title ng-flat-datepicker-month-name" ng-click="showMonthsList = !showMonthsList; showYearsList = false" ng-class="{selected: showMonthsList }">{{ calendarCursor.format(\'MMMM\') }}</span>\n                        <div class="ng-flat-datepicker-custom-select" ng-show="showMonthsList">\n                            <span ng-repeat="monthName in monthsList" ng-click="selectMonth(monthName); showMonthsList = false">{{ monthName }}</span>\n                        </div>\n                    </div>\n                    <div class="ng-flat-datepicker-custom-select-box" outside-click="showYearsList = false">\n                        <span class="ng-flat-datepicker-custom-select-title" ng-click="showYearsList = !showYearsList; showMonthsList = false" ng-class="{selected: showYearsList }">{{ calendarCursor.format(\'YYYY\') }}</span>\n                        <div class="ng-flat-datepicker-custom-select" ng-show="showYearsList">\n                            <span ng-repeat="yearNumber in yearsList" ng-click="selectYear(yearNumber)">{{ yearNumber }}</span>\n                        </div>\n                    </div>\n                </div>\n                <span class="ng-flat-datepicker-arrow ng-flat-datepicker-arrow-right" ng-click="nextMonth()">\n                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="50" y="50" viewBox="0 0 100 100" xml:space="preserve">\n                        <polygon points="64.8,36.2 35.2,6.5 22.3,19.4 51.9,49.1 22.3,78.8 35.2,91.7 77.7,49.1" />\n                    </svg>\n                </span>\n            </div>\n        </caption>\n        <tbody>\n            <tr class="days-head">\n                <td class="day-head" ng-repeat="dayName in daysNameList">{{ dayName }}</td>\n            </tr>\n            <tr class="days" ng-repeat="week in currentWeeks">\n                <td ng-repeat="day in week" ng-click="selectDay(day)" ng-class="[\'day-item\', { \'isToday\': day.isToday, \'isInMonth\': day.isInMonth, \'isDisabled\': !day.isSelectable, \'isSelected\': day.isSelected }]">{{ day.date | date:\'dd\' }}</td>\n            </tr>\n        </tbody>\n    </table>\n</div>\n')}]);
+(function() {
+
+    'use strict';
+
+    /**
+     * @desc Datepicker directive
+     * @example <ng-datepicker></ng-datepicker>
+     */
+
+    angular
+        .module('ngFlatDatepicker', [])
+        .directive('ngFlatDatepicker', ngFlatDatepickerDirective);
+
+    function ngFlatDatepickerDirective($templateCache, $compile, $document, datesCalculator) {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            scope: {
+                config: '=datepickerConfig'
+            },
+            link: function(scope, element, attrs, ngModel) {
+
+                var template     = angular.element($templateCache.get('datepicker.html'));
+                var dateSelected = '';
+                var today        = moment.utc();
+
+                // Default options
+                var defaultConfig = {
+                    allowFuture: true,
+                    dateFormat: null,
+                    minDate: null,
+                    maxDate: null
+                };
+
+                // Apply and init options
+                scope.config = angular.extend(defaultConfig, scope.config);
+                if (angular.isDefined(scope.config.minDate)) moment.utc(scope.config.minDate).subtract(1, 'day');
+                if (angular.isDefined(scope.config.maxDate)) moment.utc(scope.config.maxDate).add(1, 'day');
+
+                // Data
+                scope.calendarCursor  = today;
+                scope.currentWeeks    = [];
+                scope.daysNameList    = datesCalculator.getDaysNames();
+                scope.monthsList      = moment.months();
+                scope.yearsList       = datesCalculator.getYearsList();
+
+                // Display
+                scope.pickerDisplayed = false;
+
+                scope.$watch(function(){ return ngModel.$modelValue; }, function(value){
+                    if (value) {
+                        dateSelected = scope.calendarCursor = moment.utc(value, scope.config.dateFormat);
+                    }
+                });
+
+                scope.$watch('calendarCursor', function(val){
+                    scope.currentWeeks = getWeeks(val);
+                });
+
+                /**
+                 * ClickOutside, handle all clicks outside the DatePicker when visible
+                 */
+                element.bind('click', function(e) {
+                    scope.$apply(function(){
+                        scope.pickerDisplayed = true;
+                        $document.on('click', onDocumentClick);
+                    });
+                });
+
+                function onDocumentClick(e) {
+                    if (template !== e.target && !template[0].contains(e.target) && e.target !== element[0]) {
+                        $document.off('click', onDocumentClick);
+                        scope.$apply(function () {
+                            scope.calendarCursor = dateSelected ? dateSelected : today;
+                            scope.pickerDisplayed = scope.showMonthsList = scope.showYearsList = false;
+                        });
+                     }
+                }
+
+                init();
+
+                /**
+                 * Display the previous month in the datepicker
+                 * @return {}
+                 */
+                scope.prevMonth = function() {
+                    scope.calendarCursor = moment(scope.calendarCursor).subtract(1, 'months');
+                };
+
+                /**
+                 * Display the next month in the datepicker
+                 * @return {}
+                 */
+                scope.nextMonth = function nextMonth() {
+                    scope.calendarCursor = moment(scope.calendarCursor).add(1, 'months');
+                };
+
+                /**
+                 * Select a month and display it in the datepicker
+                 * @param  {string} month The month selected in the select element
+                 * @return {}
+                 */
+                scope.selectMonth = function selectMonth(month) {
+                    scope.showMonthsList = false;
+                    scope.calendarCursor = moment(scope.calendarCursor).month(month);
+                };
+
+                /**
+                 * Select a year and display it in the datepicker depending on the current month
+                 * @param  {string} year The year selected in the select element
+                 * @return {}
+                 */
+                scope.selectYear = function selectYear(year) {
+                    scope.showYearsList = false;
+                    scope.calendarCursor = moment(scope.calendarCursor).year(year);
+                };
+
+                /**
+                 * Select a day
+                 * @param  {[type]} day [description]
+                 * @return {[type]}     [description]
+                 */
+                scope.selectDay = function(day) {
+                    if (day.isSelectable && !day.isFuture || (scope.config.allowFuture && day.isFuture)) {
+                        resetSelectedDays();
+                        day.isSelected = true;
+                        ngModel.$setViewValue(moment.utc(day.date).format(scope.config.dateFormat));
+                        ngModel.$render();
+                        scope.pickerDisplayed = false;
+                    }
+                };
+
+                /**
+                 * Init the directive
+                 * @return {}
+                 */
+                function init() {
+
+                    element.wrap('<div class="ng-flat-datepicker-wrapper"></div>');
+
+                    $compile(template)(scope);
+                    element.after(template);
+
+                    if (angular.isDefined(ngModel.$modelValue) && moment.isDate(ngModel.$modelValue)) {
+                        scope.calendarCursor = ngModel.$modelValue;
+                    }
+                }
+
+                /**
+                 * Get all weeks needed to display a month on the Datepicker
+                 * @return {array} list of weeks objects
+                 */
+                function getWeeks (date) {
+
+                    var weeks = [];
+                    var date = moment.utc(date);
+                    var firstDayOfMonth = moment(date).date(1);
+                    var lastDayOfMonth  = moment(date).date(date.daysInMonth());
+
+                    var startDay = moment(firstDayOfMonth);
+                    var endDay   = moment(lastDayOfMonth);
+                    // NB: We use weekday() to get a locale aware weekday
+                    startDay = firstDayOfMonth.weekday() === 0 ? startDay : startDay.weekday(0);
+                    endDay   = lastDayOfMonth.weekday()  === 6 ? endDay   : endDay.weekday(6);
+
+                    var currentWeek = [];
+
+                    for (var start = moment(startDay); start.isBefore(moment(endDay).add(1, 'days')); start.add(1, 'days')) {
+
+                        var afterMinDate  = !scope.config.minDate || start.isAfter(scope.config.minDate, 'day');
+                        var beforeMaxDate = !scope.config.maxDate || start.isBefore(scope.config.maxDate, 'day');
+                        var isFuture      = start.isAfter(today);
+                        var beforeFuture  = scope.config.allowFuture || !isFuture;
+
+                        var day = {
+                            date: moment(start).toDate(),
+                            isToday: start.isSame(today, 'day'),
+                            isInMonth: start.isSame(firstDayOfMonth, 'month'),
+                            isSelected: start.isSame(dateSelected, 'day'),
+                            isSelectable: afterMinDate && beforeMaxDate && beforeFuture
+                        };
+
+                        currentWeek.push(day);
+
+                        if (start.weekday() === 6 || start === endDay) {
+                            weeks.push(currentWeek);
+                            currentWeek = [];
+                        }
+                    }
+
+                    return weeks;
+                }
+
+                /**
+                 * Reset all selected days
+                 */
+                function resetSelectedDays () {
+                    scope.currentWeeks.forEach(function(week, wIndex){
+                        week.forEach(function(day, dIndex){
+                            scope.currentWeeks[wIndex][dIndex].isSelected = false;
+                        });
+                    });
+                }
+            }
+        };
+    }
+
+})();
 /*https://github.com/RemiAWE/ng-flat-datepicker*/
