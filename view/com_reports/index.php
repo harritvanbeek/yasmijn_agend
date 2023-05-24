@@ -15,10 +15,28 @@
     $login      =   NEW \classes\view\login;
 
     switch($action){
+        case "removeReport" :                
+            if($input->exist()){
+                $uuid = !empty($input->get("data")["uuid"]) ? $input->get("data")["uuid"] : null;
+                if($reports->trash($uuid)){
+                    $dataArray =    [
+                        "data"          =>  "success",
+                        "dataContent"   =>  "Systeem is bijgewekt",
+                    ];
+                };
+
+                if(!empty($dataArray)){
+                    echo json_encode($dataArray); 
+                } 
+            }
+        break;
+
         case "getReports" :
             foreach($reports->get() as $item){
                 $dataArray[] =  [
+                    "uuid"      => "{$item->uuid}",
                     "title"     => "{$item->title}",
+                    "message"   => "{$item->message}",
                     "post_date" => date("l d, F h:m", strtotime($item->post_date)) //"{$item->post_date}",
                 ];
             };

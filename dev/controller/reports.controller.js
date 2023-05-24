@@ -10,9 +10,31 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
          switch(action){
             case "reports" :
                $http.get(URI, {params:{action:"getReports"}}).then(function(data){
-                  $scope.reports = data.data;
-                  console.log(data.data);
+                  if(data.status == 200){
+                     $scope.reports = data.data;
+                     console.log(data.data);
+                  }
                });
+
+
+               $scope.readReport = function(data){
+                  if(data){
+                     $scope.modal = data;                     
+                     $('#basicExampleModal').modal('show');
+                  }
+               }
+
+               $scope.trashReport = function(data){
+                  if(data){
+                     var VALUES = [{data:data}];
+                     $http.post(URI, VALUES, {params:{action:"removeReport"}}).then(function(data){
+                        console.log(data.data);
+                     });
+                  }
+               }
+
+
+
             break;
 
             case "new-report" :

@@ -14,6 +14,12 @@ class reports{
         $this->_SESSION     = NEW \classes\core\session;
     }
 
+    public function trash($data = ""){
+        $this->array = ["uuid" => "{$data}"];
+        $this->query = "DELETE FROM `agenda_reports` WHERE `uuid` = :uuid";
+        return $this->_DB->action($this->query, $this->array);
+    }
+
     public function get(){
         $this->query = "SELECT * FROM `agenda_reports`";
         return $this->_DB->getAll($this->query);
