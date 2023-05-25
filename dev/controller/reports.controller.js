@@ -8,6 +8,17 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
 
 
          switch(action){
+            case "dagen" :
+               $http.get(URI, {params:{action:"days"}}).then(function(data){
+                  if(data.status === 200){
+                        console.log(data.data);
+                        if(data.data !== 'null'){ 
+                           $scope.days = data.data; 
+                        }
+                  };
+               });  
+            break;
+            
             case "reports" :
                $http.get(URI, {params:{action:"getReports"}}).then(function(data){
                   if(data.status == 200){
@@ -32,9 +43,6 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                      });
                   }
                }
-
-
-
             break;
 
             case "new-report" :

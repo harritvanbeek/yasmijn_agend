@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">            
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Dagen</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr ng-repeat="day in days">
+                                <td ng-bind-html="day.day"></td>
+                                <td>
+                                    <a ng-click="trashDay(day)"><i class="far fa-trash-alt"></i></a> 
+                                </td>
+                            </tr>    
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

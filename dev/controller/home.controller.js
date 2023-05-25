@@ -93,7 +93,6 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
             break;
 
             case "agenda" :
-                
                 getData("getAppointments");
                 getClienten("getClienten");
                 getAppointment("nowAppointment");

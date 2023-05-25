@@ -12,9 +12,20 @@
     
     $register   =   NEW \classes\view\register;
     $reports    =   NEW \classes\view\reports;
+    $agenda     =   NEW \classes\view\agenda;
     $login      =   NEW \classes\view\login;
 
     switch($action){
+        case "days" :
+            foreach($agenda->getDates() as $item){                
+                $dataArray[] = [
+                    "day"         => date("l d F", strtotime($item->date)),
+                    "post_uuid"     => "{$item->uuid}",
+                ];                                                                                            
+            }
+            echo json_encode($dataArray); 
+        break;                
+        
         case "removeReport" :                
             if($input->exist()){
                 $uuid = !empty($input->get("data")["uuid"]) ? $input->get("data")["uuid"] : null;
