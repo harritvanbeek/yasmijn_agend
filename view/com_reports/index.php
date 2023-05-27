@@ -37,6 +37,18 @@
             }
                 echo json_encode($dataArray);            
         break;
+
+        case "months" :
+            foreach($agenda->getMonth() as $item){ 
+                if($item->month){
+                    $dataArray[] = [
+                        "month" => "Maand {$item->month}",                    
+                        "weekID" => "{$item->month}",                    
+                    ];                                                                                                                
+                }               
+            }
+                echo json_encode($dataArray);            
+        break;
         
         case "removeReport" :                
             if($input->exist()){

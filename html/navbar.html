@@ -13,6 +13,17 @@
     
     <span id="dpl-navbar-new-right-buttons">
         <ul id="main-navbar" class="nav navbar-nav nav-flex-icons ml-auto ms-auto flex-row" data-loaded="dpl">
+
+            <li class="nav-item me-3 me-lg-0 dropdown">
+                <a class="nav-link" data-toggle="dropdown">
+                    <i class="fas fa-plus"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-end" style="width: 250px;">
+                    <a class="dropdown-item" ui-sref="admin">Nieuwe afspraak</a>   
+                    <a class="dropdown-item" ui-sref="new_report">Nieuwe rapportage</a>             
+                </div>
+            </li> 
              
             <li class="nav-item me-3 me-lg-0 dropdown">
                 <a class="nav-link" data-toggle="dropdown">
@@ -20,14 +31,24 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-end" style="width: 250px;">
-                    <a class="dropdown-item" ui-sref="users">Gebruikers</a> 
-                    <a class="dropdown-item" ui-sref="days">dagen</a>   
-                    <a class="dropdown-item" ui-sref="weeks">weken</a>     
-                    <a class="dropdown-item" ui-sref="reports">Reports</a>       
+                    <a class="dropdown-item" ui-sref="days">Dagen</a>   
+                    <a class="dropdown-item" ui-sref="weeks">Weken</a>   
+                    <a class="dropdown-item" ui-sref="months">Maanden</a>   
+                    <a class="dropdown-item" ui-sref="reports">Raportage's</a>           
+                </div>
+            </li>  
+            
+            <li class="nav-item me-3 me-lg-0 dropdown">
+                <a class="nav-link" data-toggle="dropdown">
+                    <i class="fas fa-cog"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-end" style="width: 250px;">
+                    <a class="dropdown-item" ui-sref="users">Gebruikers</a>       
                     <a class="dropdown-item" ui-sref="changePassword">Verander wachtwoord</a>
                     <a class="dropdown-item" ui-sref="changeUsername">Verander gebruikersnaam</a>            
                 </div>
-            </li>            
+            </li>  
             
             <!--
             <li class="nav-item me-3 me-lg-0 dropdown">

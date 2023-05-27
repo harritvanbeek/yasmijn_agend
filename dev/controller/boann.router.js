@@ -6,7 +6,7 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
         $stateProvider
             .state({
                 name:"admin",
-                url: "/admin/",
+                url: "/nieuwe-afspraak/",
                 views : {
                     "navbar" : {
                         templateUrl : "./html/navbar.html?v="+controler.version,
@@ -137,6 +137,21 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
 
                     "mainpage" : {
                         templateUrl : "./html/admin/dagen.html?v="+controler.version,
+                        controller  : "reportsController",
+                    },
+                }
+            })
+
+            .state({
+                name:"months",
+                url: "/maanden/",
+                views : {
+                    "navbar" : {
+                        templateUrl : "./html/navbar.html?v="+controler.version,                        
+                    },
+
+                    "mainpage" : {
+                        templateUrl : "./html/admin/maanden.html?v="+controler.version,
                         controller  : "reportsController",
                     },
                 }

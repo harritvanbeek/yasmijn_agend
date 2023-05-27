@@ -47,7 +47,7 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
                }
             break;
 
-            case "admin" :
+            case "nieuwe-afspraak" :
                   $scope.save = function(data){
                      if(data){
                         var VALUES = [{data:data}];

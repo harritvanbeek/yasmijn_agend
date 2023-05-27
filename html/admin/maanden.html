@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">            
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Maanden</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr ng-repeat="month in months">
+                                <td ng-bind-html="month.month"></td>
+                                <td>
+                                    <a ng-click="trashMonth(month)"><i class="far fa-trash-alt"></i></a> 
+                                </td>
+                            </tr>    
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

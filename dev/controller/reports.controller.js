@@ -30,6 +30,17 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                });  
             break;
 
+            case "maanden" :
+               $http.get(URI, {params:{action:"months"}}).then(function(data){
+                  if(data.status === 200){
+                        console.log(data.data);
+                        if(data.data !== 'null'){ 
+                           $scope.months = data.data; 
+                        }
+                  };
+               });  
+            break;
+
             
             
             case "reports" :
