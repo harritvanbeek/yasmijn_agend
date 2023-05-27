@@ -53,6 +53,22 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
             })
 
             .state({
+                name:"afdrukken",
+                url: "/afdrukken/",
+                views : {
+                    "navbar" : {
+                        templateUrl : "./html/navbar.html?v="+controler.version,
+                        //controller: "NavbarController",
+                    },
+
+                    "mainpage" : {
+                        templateUrl : "./html/afdrukken.html?v="+controler.version,
+                        controller  : "HomeController",
+                    },
+                }
+            })
+
+            .state({
                 name:"changePassword",
                 url: "/change-password/",
                 views : {

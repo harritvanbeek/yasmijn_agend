@@ -1,0 +1,87 @@
+<div class="container">
+    <div>
+        <div class="row">
+
+            <div class="col-md-4">                
+                <button onclick="window.print();return false;" class="btn btn-outline-primary btn-rounded btn-sm">Afdrukken</button>
+                <button class="btn btn-outline-primary btn-rounded btn-sm" data-toggle="modal" data-target="#exampleModal">Kies Dag</button>
+            </div>
+            
+        </div>
+
+        <div class="print">          
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tijd</th>
+                        <th>Datum</th>
+                        <th>Bericht</th>
+                        <th>onderwerp</th>
+                        <th>Client</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="items in appointment | filter:search">
+                        <td ng-bind-html="items.appointment.time"></td>
+                        <td width="100px" ng-bind-html="items.appointment.date"></td>
+                        <td><div title="{{items.appointment.message}}" ng-bind-html="items.appointment.message"></div></td>
+                        <td ng-bind-html="items.appointment.subject"></td>
+                        <td ng-bind-html="items.appointment.client"></td>
+                    </tr>
+                </tbody>        
+            </table>
+        </div>
+
+    </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Selecteer dag</h5>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row" style="margin-top:-120px;">
+                <div class="container col-md-14">
+                    <botton ng-click="setTab('1')" class="btn btn-sm btn-outline-indigo btn-rounded">Dag</botton>
+                    <botton ng-click="setTab('2')" class="btn btn-sm btn-outline-indigo btn-rounded">Week</botton>
+                    <botton ng-click="setTab('3')" class="btn btn-sm btn-outline-indigo btn-rounded">Maand</botton>
+                    <hr>
+                    <select class="form-control browser-default" ng-model="from.client" ng-change="filterClient(from)" >
+                        <option value="">Reset clienten</option>    
+                        <option ng-repeat="client in clienten" value="{{client.uuid}}" ng-bind-html="client.client"></option>    
+                    </select>                     
+                    <hr>
+                    
+                    
+                    
+                    <div ng-show="getTab('1')" class="list-group">
+                        <a ng-repeat="item in items" class="list-group-item list-group-item-action" ng-click="setTable($index, item)">
+                            <strong ng-bind-html="item.dates"></strong>                        
+                        </a>
+                    </div>
+        
+                    <div ng-show="getTab('2')" class="list-group">
+                        <a ng-repeat="item in items" class="list-group-item list-group-item-action" ng-click="setTable($index, item)">
+                            <strong ng-bind-html="item.week"></strong>                        
+                        </a>
+                    </div>
+        
+        
+                    <div ng-show="getTab('3')" class="list-group">
+                        <a ng-repeat="item in items" class="list-group-item list-group-item-action" ng-click="setTable($index, item)">
+                            <strong ng-bind-html="item.month"></strong>                         
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

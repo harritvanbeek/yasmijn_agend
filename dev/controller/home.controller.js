@@ -199,6 +199,80 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
                     }
                 }  
             break;
+
+            case "afdrukken" :
+                getData("getAppointments");
+                getClienten("getClienten");
+                getAppointment("nowAppointment");
+
+
+                $scope.filterClient = function(data){
+                    if(data){
+                        var VALUES = [{data:data}];
+                        $http.post(URI, VALUES, {params:{action:"filterClient"}}).then(function(data){
+                             if(data.status === 200){
+                                 $scope.appointment = data.data;                                                                
+                             }
+                       });
+                    }
+                }
+
+                
+                $scope.edit = function(data){
+                    $state.go('update', {uuid:data.appointment.agendaUuid})
+                }
+
+                $scope.trash = function(data){
+                    if(data){
+                        var VALUES = [{data:data.appointment.agendaUuid}];
+                        $http.post(URI, VALUES, {params:{action:"deleteAppointment"}}).then(function(data){
+                             if(data.status === 200){
+                                //console.log(data.data)
+                                switch(data.data.data){
+                                   case "success":
+                                      $state.reload();                              
+                                   break;
+                                }
+                             }
+                       }); 
+                    }
+                }
+
+                $scope.setTable = function(index, item){
+                    if(item){
+                        var VALUES = [{data:item}];
+                        $http.post(URI, VALUES, {params:{action:"getAppointment"}}).then(function(data){
+                            if(data.status === 200){                                
+                                $scope.appointment = data.data;
+                                $scope.getTable = true;                                
+                            }
+                        });                
+                    }
+                }
+
+                $scope.setTab = function(index){                    
+                    $scope.thisTab = index; 
+                    switch(index){
+                        case "1" :
+                            getData("getAppointments");
+                        break;
+
+                        case "2" :
+                            getData("getWeeks");
+                        break;
+
+                        case "3" :
+                            getData("getMonths");
+                        break;
+                    }                                
+                } 
+
+                $scope.getTab = function(index){
+                    if($scope.thisTab === index){
+                        return true;
+                    }
+                }  
+            break;
         } 
         
         function getAppointment(location){
