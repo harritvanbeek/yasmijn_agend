@@ -68,6 +68,21 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
             })
 
             .state({
+                name:"changeUsername",
+                url: "/change-username/",
+                views : {
+                    "navbar" : {
+                        templateUrl : "./html/navbar.html?v="+controler.version,                        
+                    },
+
+                    "mainpage" : {
+                        templateUrl : "./html/changeUsername.html?v="+controler.version,
+                        controller  : "HomeController",
+                    },
+                }
+            })
+
+            .state({
                 name:"users",
                 url: "/clienten/",
                 views : {

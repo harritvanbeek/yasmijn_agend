@@ -125,6 +125,45 @@
             }
         break;
 
+        case "changeUsername" :
+            if($input->exist()){
+
+                $newUsername    = !empty($input->get("data")["new_username"])    ? escape($input->get("data")["new_username"])      : NULL;
+                $repeatUsername = !empty($input->get("data")["repeat_username"]) ? escape($input->get("data")["repeat_username"])   : NULL;
+
+                $uuid           = $login->getUsername($session->get("userUuid")->uuid); 
+
+                if(empty($newUsername)      === true)            {$errors = ["Nieuw gebruikersnaam is een verplichte veld"];}
+                elseif($register->userExist($newUsername)){$errors = ["Gebruikesnaam bestaat al!"];}
+                elseif(empty($repeatUsername)   === true)            {$errors = ["Repeat gebruikersnaam is een verplichte veld"];}
+                elseif($newUsername !== $repeatUsername)             {$errors = ["gebruikersnaam komt niet overeen"];}
+                if(!empty($input->exist()) and empty($errors)){
+                    //set new password
+                    $postArray = [
+                        "uuid"      =>  $session->get("userUuid")->uuid,
+                         "username"  =>  $newUsername,
+                    ];
+                    
+                    if($login->updateUsername($postArray)){
+                        $dataArray =    [
+                            "data"          =>  "success",
+                            "dataContent"   =>  "Wachtwoord is bijgewekt",
+                        ];
+                    };
+
+                }else{
+                    $dataArray =    [
+                        "data"          =>  "error",
+                        "dataContent"   =>  "{$errors[0]}",
+                    ];
+                }
+
+                if(!empty($dataArray)){
+                    echo json_encode($dataArray); 
+                }
+            }
+        break;
+
         case "nowAppointment" :
                 $date = date("Y-m-d", getdate()[0]); 
                 if(!empty($date)){
@@ -133,6 +172,7 @@
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
+                                "date"          =>  date("D d F", strtotime($item->date)),
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
@@ -155,6 +195,7 @@
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
+                                "date"          =>  date("D d F", strtotime($item->date)),
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",

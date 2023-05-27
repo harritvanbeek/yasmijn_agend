@@ -25,10 +25,17 @@ class register{
            return false;
         }           
     }
+    
 
     public function usernameExist(){
         $this->array =  ["user" => "{$GLOBALS["username"]}"];
         $this->query = "SELECT COUNT('username') as 'exist' FROM `users` WHERE `username` = :user ";
         return $this->_DB->get($this->query, $this->array)->exist;        
+    }
+
+    public function userExist($newUsername){
+        $this->array = ["user" => "{$newUsername}"];
+        $this->query = "SELECT count('username') as `exist` FROM `users` WHERE `username` = :user ";
+        return $this->_DB->get($this->query, $this->array)->exist;
     }
 }

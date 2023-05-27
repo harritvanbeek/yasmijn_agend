@@ -4,18 +4,14 @@
         <div class="col-md-6">
             <div class="md-form form-sm" id="datum">
                 <i class="fas fa-calendar prefix"></i>
-                <label for="startDate">Begin datum</label>
-                <input id="startDate" class="form-control datepicker" type="text" ng-model="from.date">                          
-                <span>Gebruik rechter muis voor activatie van de optie</span>
+                <input class="form-control " type="date" ng-model="from.date">                          
             </div>                       
         </div>
         
         <div class="col-md-6">
             <div class="md-form form-sm" id="time">
                 <i class="fas fa-clock prefix"></i>
-                <label for="startTime">Begin tijd</label>
-                <input id="input_starttime" type="text" class="form-control" ng-model="from.time">                                 
-                <span>Gebruik rechter muis voor activatie van de optie</span>
+                <input type="time" class="form-control timepicker" ng-model="from.time">                                 
             </div>          
         </div>
         

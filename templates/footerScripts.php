@@ -23,7 +23,7 @@
     <script type="text/javascript" src="<?php echo THEMES; ?>/js/boann.min.js?v=<?php echo getdate()[0]; ?>"></script>
     <script type="text/javascript" src="<?php echo THEMES; ?>/js/boann.controller.min.js?v=<?php echo getdate()[0]; ?>"></script>
     
-    <script type="text/javascript" src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=lh5bb6qr4nj86oxh5tb3f6m1unv9czc0nulyr14imdpccn28"></script>
+    <script type="text/javascript" src="https://cdn.tiny.cloud/1/d0gdynvd340gzzdtseszy1qjpcwi8y3it7jilwxqys8e0m63/tinymce/6/tinymce.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
     <script type="text/javascript" src="<?php echo THEMES; ?>/js/tinymce.js"></script>
 

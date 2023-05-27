@@ -10,7 +10,7 @@
 
             if($_GET["action"] === 'logout'){
                 unset($_SESSION["userUuid"]);   
-                header("Location:{$_SERVER["REQUEST_SCHEME"]}://{$_SERVER["SERVER_NAME"]}/yasmijn_agend/");                           
+                header("Location:{$_SERVER["REQUEST_SCHEME"]}://{$_SERVER["SERVER_NAME"]}/");                           
             }else{
                 require_once BPATH_BASE . '/templates/index.php';
             }

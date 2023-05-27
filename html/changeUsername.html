@@ -1,0 +1,20 @@
+<div class="container">
+
+    <div class="col-md-6">
+        <div class="md-form form-sm">
+            <i class="fas fa-user prefix"></i>
+            <label for="new_username">Nieuwe Gebruikersnaam</label>
+            <input id="new_username" class="form-control" type="text" ng-model="form.new_username">                                          
+        </div>                       
+    </div>
+
+    <div class="col-md-6">
+        <div class="md-form form-sm">
+            <i class="fas fa-user prefix"></i>
+            <label for="repeat_username">herhaal Gebruikersnaam</label>
+            <input id="repeat_username" class="form-control" type="text" ng-model="form.repeat_username">                                         
+        </div>                       
+    </div>
+
+    <button ng-click="updateUsername(form)" class="btn btn-success btn-sm">Opslaan</button>
+</div>

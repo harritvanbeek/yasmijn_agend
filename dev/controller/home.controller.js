@@ -92,6 +92,40 @@ boann.controller('HomeController', ['$scope', '$http', '$window', '$state', func
                 }
             break;
 
+            case "change-username" :                   
+                $scope.updateUsername = function(item){
+                    if(item){
+                        var VALUES = [{data:item}];
+                        $http.post(URI, VALUES, {params:{action:"changeUsername"}}).then(function(data){
+                                console.log(data.data);
+                                switch(data.data.data){
+                                   case "success":
+                                      swal({
+                                        title   : "Well done!",
+                                        text    : data.data.dataContent,
+                                        button  : "OK",
+                                        closeOnClickOutside: false,
+                                        closeOnEsc: false,
+                                        icon: "success",
+                                      }).then(function(input){
+                                            //log user out
+                                            location.href = "index.php?action=logout";
+                                      });
+
+                                      //swal("Well done!", data.data.dataContent, "success");                           
+                                   break;
+
+                                   case "error":
+                                      swal("Oeps!", data.data.dataContent, "error");                              
+                                   break;
+                                }
+                        });
+                    }else{
+                        swal("Oeps!", "Alle velden zijn verplicht!", "error"); 
+                    };
+                }
+            break;
+
             case "agenda" :
                 getData("getAppointments");
                 getClienten("getClienten");

@@ -25,6 +25,12 @@ class login{
         return $this->return;
     }
 
+    public function updateUsername($array = []){
+        $this->query    =   "UPDATE `users` SET `username` = :username WHERE `uuid` = :uuid ";
+        $this->return   =   $this->_DB->action($this->query, $array);
+        return $this->return;
+    }
+
     public function uuidExist(){
         $this->uuid     = $this->_SESSION->get('userUuid')->uuid;
         $this->array    =   ["uuid" => "{$this->uuid}"];
