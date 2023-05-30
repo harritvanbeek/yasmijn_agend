@@ -16,6 +16,11 @@
     $login      =   NEW \classes\view\login;
 
     switch($action){
+        case "thisReports" :
+            $uuid   =   !empty($_GET["uuid"]) ? $_GET["uuid"] : NULL;
+            echo json_encode($reports->thisReports($uuid));
+        break;
+
         case "removeDays" :
             if($input->exist()){
                 $uuid   =   !empty($input->get("data")["post_uuid"]) ? $input->get("data")["post_uuid"] : NULL;
@@ -79,6 +84,42 @@
 
             if(!empty($dataArray)){
                 echo json_encode($dataArray); 
+            }
+        break;
+
+        case "updateReport" :
+            if($input->exist()){
+                $title      = !empty($input->get("data")["title"])   ? escape($input->get("data")["title"]) : null;
+                $message    = !empty($input->get("data")["message"]) ? $input->get("data")["message"]       : null;
+
+                if(empty($title))       {$errors = ["Je geen title opgegeven!"];}
+                elseif(empty($message)) {$errors = ["Bericht in nog leeg!"];}
+
+                if(!empty($input->exist()) and empty($errors)){
+                    //post new report 
+                    $postArray = [
+                        "uuid"      => "{$settings->MakeUuid()}",
+                        "title"     => "{$title}",
+                        "message"   => "{$message}",
+                    ];
+
+                    /*if($reports->add($postArray) > 0){
+                        $dataArray =    [
+                            "data"          =>  "success",
+                            "dataContent"   =>  "Systeem is bijgewekt",
+                        ];
+                    }*/
+                }else{
+                    $dataArray =    [
+                        "data"          =>  "error",
+                        "dataContent"   =>  "{$errors[0]}",
+                    ];
+                }
+
+                if(!empty($dataArray)){
+                    echo json_encode($dataArray); 
+                }
+
             }
         break;
 

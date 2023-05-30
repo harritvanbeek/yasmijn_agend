@@ -48,6 +48,36 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                }
             break;   
             
+            case "view-report" :
+               $http.get(URI, {params:{action:"thisReports", uuid:$stateParams.uuid}}).then(function(data){
+                  if(data.data){
+                     $(".fa-pen").addClass('active');
+                     $("label").addClass('active');
+                     $scope.from = data.data;
+                  }
+               });
+
+               $scope.save  = function(data){
+                  if(data){
+                     var VALUES = [{data:data}];
+                     $http.post(URI, VALUES, {params:{action:"updateReport"}}).then(function(data){
+                           console.log(data.data);
+                           switch(data.data.data){
+                                case "success":
+                                    $state.go('reports');                              
+                                break;
+
+                                case "error":
+                                    swal("Oeps!", data.data.dataContent, "error");                             
+                                break;
+                            }   
+                     })
+                  }else{
+                     swal("Oeps!", "Alle velden zijn verplicht!", "error"); 
+                  }
+               }
+            break;
+
             case "reports" :
                $http.get(URI, {params:{action:"getReports"}}).then(function(data){
                   if(data.status == 200){
@@ -57,10 +87,7 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
 
 
                $scope.readReport = function(data){
-                  if(data){
-                     $scope.modal = data;                     
-                     $('#basicExampleModal').modal('show');
-                  }
+                  $state.go('view_report', {uuid:data.uuid});                                  
                }
 
                $scope.trashReport = function(data){

@@ -34,7 +34,12 @@ class reports{
         return $this->return;
     }
 
-
+    /* reports */
+    public function thisReports($data = ""){
+        $this->array = ["uuid" => "{$data}"];
+        $this->query = "SELECT * FROM `agenda_reports` WHERE `uuid` = :uuid ";
+        return $this->_DB->get($this->query, $this->array); 
+    }
 
     public function trash($data = ""){
         $this->array = ["uuid" => "{$data}"];

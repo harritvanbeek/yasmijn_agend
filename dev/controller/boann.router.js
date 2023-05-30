@@ -144,6 +144,21 @@ boann.config(['$stateProvider', '$urlMatcherFactoryProvider', '$urlRouterProvide
             })
 
             .state({
+                name:"view_report",
+                url: "/view-report/:uuid",
+                views : {
+                    "navbar" : {
+                        templateUrl : "./html/navbar.html?v="+controler.version,                        
+                    },
+
+                    "mainpage" : {
+                        templateUrl : "./html/admin/new_report.html?v="+controler.version,
+                        controller  : "reportsController",
+                    },
+                }
+            })
+
+            .state({
                 name:"days",
                 url: "/dagen/",
                 views : {
