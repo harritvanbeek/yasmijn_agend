@@ -12,6 +12,7 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
                var VALUES = [{data:$stateParams.uuid}];
                $http.post(URI, VALUES, {params:{action:"thisAppointment"}}).then(function(data){
                      if(data.status === 200){
+                        console.log(data.data)
                         $scope.from = data.data; 
 
                         $('#datum').find('.fas').addClass('active');                      

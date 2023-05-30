@@ -44,6 +44,9 @@ class agenda{
         $this->array =  ["dates" => "{$date}"];
         $this->query = "SELECT * 
                                 FROM `agenda_dates`
+                                    LEFT JOIN `agenda_appointment`
+                                    ON `agenda_appointment`.`uuid` = `agenda_dates`.`dateUuid` 
+
                                     LEFT JOIN `clients`
                                     ON `clients`.`uuid` = `agenda_dates`.`clientUuid`                                     
                                 WHERE `agenda_dates`.`agendaUuid` = :dates ";

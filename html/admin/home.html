@@ -4,14 +4,14 @@
         <div class="col-md-6">
             <div class="md-form form-sm" id="datum">
                 <i class="fas fa-calendar prefix"></i>
-                <input class="form-control " type="date" ng-model="from.date">                          
+                <input class="form-control datepicker" id="datepicker" type="text" ng-model="from.date">                                          
             </div>                       
         </div>
         
         <div class="col-md-6">
             <div class="md-form form-sm" id="time">
                 <i class="fas fa-clock prefix"></i>
-                <input type="time" class="form-control timepicker" ng-model="from.time">                                 
+                <input class="form-control timepicker" id="timepicker" type="text" ng-model="from.time">                                 
             </div>          
         </div>
         
@@ -38,5 +38,5 @@
         </div>
     </div>
 
-    <button class="btn btn-success" ng-click="save(from)">Opslaan</button>
+    <!-- <button class="btn btn-success" ng-click="save(from)">Opslaan</button> -->
 </div>

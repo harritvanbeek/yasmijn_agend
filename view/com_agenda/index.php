@@ -334,6 +334,7 @@
             if($input->exist()){
                 $uuid   = !empty($input->get("data")) ? $input->get("data") : NULL;
                 $item   = $agenda->thisAppointment($uuid);                
+                
                 $dataArray  =   [
                     "date"       =>  date("d F, Y", strtotime($item->date)), //21 April, 2023
                     "time"       =>  date("H:i:s",  strtotime($item->time)), //00:00:00
