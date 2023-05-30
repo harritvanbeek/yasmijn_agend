@@ -218,9 +218,7 @@
                 $month      = !empty($input->get("data")["month"])      ? $input->get("data")["month"]      : null; 
                 $post_uuid  = !empty($input->get("data")["post_uuid"])  ? $input->get("data")["post_uuid"]  : NULL;
                 
-                if(!empty($post_uuid)){ 
-                    
-
+                if(!empty($post_uuid)){                 
                     foreach($agenda->getAppointment($post_uuid) as $item){
                         $dayName    = date("D", strtotime($item->date));
                         $dayNumber  = date("d", strtotime($item->date));
@@ -231,7 +229,8 @@
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
-                                "date"          =>  $transLateDate,//DEZE
+                                "displayDate"   =>  "{$transLateDate}",
+                                "date"          =>  date("l d, F", strtotime($item->date)),
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
@@ -251,7 +250,8 @@
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
-                                "date"          =>  $transLateDate,                                
+                                "displayDate"   =>  "{$transLateDate}",
+                                "date"          =>  date("l d, F", strtotime($item->date)),                             
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
@@ -266,11 +266,12 @@
                         $month      = date("F", strtotime($item->date));
                 
                         $transLateDate = $dates->translateDays_short()[$dayName]. " ". $dayNumber.", ".$dates->translateMonth_short()[$month];
-                       $dataArray[] = [
+                        $dataArray[] = [
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
-                                "date"          =>  $transLateDate,                                
+                                "displayDate"   =>  "{$transLateDate}",
+                                "date"          =>  date("l d, F", strtotime($item->date)),                               
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
@@ -295,7 +296,8 @@
                 $transLateDate = $dates->translateDays()[$dayName]. " ". $dayNumber.", ".$dates->translateMonth()[$month];
 
                 $dataArray[] = [
-                    "dates"         => "{$transLateDate}",
+                    "dates"         => date("l d, F", strtotime($item->date)),
+                    "displayDates"  => "{$transLateDate}",
                     "post_uuid"     => "{$item->uuid}",
                 ];                                                                                            
             }
@@ -339,7 +341,7 @@
                     "data"       =>  "{$item->message}",
                     "client"     =>  "{$item->uuid}",
                 ];
-
+                
                 echo json_encode($dataArray);
             }
         break;

@@ -29,7 +29,7 @@
             
             <div ng-show="getTab('1')" class="list-group">
                 <a ng-repeat="item in items | limitTo : '31' : '0'" class="list-group-item list-group-item-action" ng-click="setTable($index, item)">
-                    <strong ng-bind-html="item.dates"></strong>                        
+                    <strong ng-bind-html="item.displayDates"></strong>                        
                 </a>
             </div>
 
@@ -62,7 +62,7 @@
                 <tbody>
                     <tr ng-repeat="items in appointment | filter:search">
                         <td ng-bind-html="items.appointment.time"></td>
-                        <td width="100px" ng-bind-html="items.appointment.date"></td>
+                        <td width="100px" ng-bind-html="items.appointment.displayDate"></td>
                         <td><div title="{{items.appointment.message}}" ng-bind-html="items.appointment.message"></div></td>
                         <td ng-bind-html="items.appointment.subject"></td>
                         <td ng-bind-html="items.appointment.client"></td>
