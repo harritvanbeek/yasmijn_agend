@@ -24,12 +24,26 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
 
                $scope.trashDay = function(data){
                   if(data){
-
-
-                     /*var VALUES = [{data:data}];
+                     var VALUES = [{data:data}];
                      $http.post(URI, VALUES, {params:{action:"removeDays"}}).then(function(data){
-                        console.log(data.data);
-                     });*/
+                        if(data.status == 200){
+                           switch(data.data.data){
+                              case "success" :
+                                 $('#basicExampleModal').modal('hide');
+                                 swal({
+                                     title   : "Well done!",
+                                     text    : data.data.dataContent,
+                                     button  : "OK",
+                                     closeOnClickOutside: false,
+                                     closeOnEsc: false,
+                                     icon: "success",
+                                   }).then(function(input){
+                                       $state.reload();
+                                 });
+                              break;
+                           }
+                        }
+                     });
                   }
                }
             break;   

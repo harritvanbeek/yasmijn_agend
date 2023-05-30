@@ -14,6 +14,28 @@ class reports{
         $this->_SESSION     = NEW \classes\core\session;
     }
 
+    /*delete days or appontments */
+    public function removeDays($array = []){
+        return self::_removeDays($array);
+    }
+
+
+    protected function _removeDays($array = []){
+        if(!empty($array["check"])){
+            $this->query[] = "DELETE FROM `agenda_appointment` WHERE `uuid` = '{$array['uuid']}' ";
+            $this->query[] = "DELETE FROM `agenda_dates` WHERE `dateUuid` = '{$array['uuid']}' ";
+        }else{
+            $this->query[] = "DELETE FROM `agenda_appointment` WHERE `uuid` = '{$array['uuid']}' ";
+        } 
+
+        foreach($this->query as $query){                
+            $this->return = $this->_DB->action($query);
+        }
+        return $this->return;
+    }
+
+
+
     public function trash($data = ""){
         $this->array = ["uuid" => "{$data}"];
         $this->query = "DELETE FROM `agenda_reports` WHERE `uuid` = :uuid";

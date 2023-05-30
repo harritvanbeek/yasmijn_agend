@@ -19,7 +19,25 @@
         case "removeDays" :
             if($input->exist()){
                 $uuid   =   !empty($input->get("data")["post_uuid"]) ? $input->get("data")["post_uuid"] : NULL;
+                $check  =   !empty($input->get("data")["check"])     ? $input->get("data")["check"] : NULL;
                 
+                if(!empty($input->exist())){
+                        $postArray  =  [
+                            "uuid"  =>  "{$uuid}",
+                            "check" =>  "{$check}",
+                        ];
+                        
+                        if($reports->removeDays($postArray) > 0){
+                           $dataArray =    [
+                                "data"          =>  "success",
+                                "dataContent"   =>  "Systeem is bijgewekt",
+                            ]; 
+                        }
+
+                        if(!empty($dataArray)){
+                            echo json_encode($dataArray); 
+                        } 
+                }
             }
         break;
 
