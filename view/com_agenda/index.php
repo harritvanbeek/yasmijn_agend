@@ -314,27 +314,11 @@
                 echo json_encode($dataArray);            
         break;
 
-        // case "getMonths" :
-        //     foreach($agenda->getMonth() as $item){ 
-        //         $month      = date("F", strtotime($item->month));
-                
-        //         $transLateDate = $dates->translateMonth()[$month];
-        //         if($transLateDate){
-        //             $dataArray[] = [
-        //                 "month" => $transLateDate,                    
-        //             ];                                                                                                                
-        //         }               
-        //     }
-        //         echo json_encode($dataArray); 
-        // break;
-
         case "getMonths" :
             foreach($agenda->getMonth() as $item){ 
                 if($item->month){
                     $month      = date("F", strtotime($item->month));
                     $transLateDate = $dates->translateMonth()[$month];
-
-
                     $dataArray[] = [
                         "Displaymonth"  => "{$transLateDate}",                    
                         "month"         => "{$item->month}",                    
