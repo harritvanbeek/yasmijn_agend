@@ -9,6 +9,6 @@ class Config{
         $host               =   "127.0.0.1",    
         $dbname             =   "yasmijn_agenda",   
         $dbuser             =   "root", 
-        $dbpassword         =   "84ZXfURypoIfVWfkKkTDZc5Bm"; 
+        $dbpassword         =   ""; 
                
 }

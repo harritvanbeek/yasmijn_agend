@@ -6,7 +6,7 @@
     // Global definitions
     $parts      = explode(DIRECTORY_SEPARATOR, BPATH_BASE);
 
-    if($_SERVER["SERVER_NAME"] !== "agenda.yasmijnvels.nl"){
+    if($_SERVER["SERVER_NAME"] !== "boann.home"){
         $home = "/yasmijn_agend/";
     }
 
