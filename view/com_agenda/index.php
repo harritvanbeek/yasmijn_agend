@@ -222,11 +222,16 @@
                     
 
                     foreach($agenda->getAppointment($post_uuid) as $item){
+                        $dayName    = date("D", strtotime($item->date));
+                        $dayNumber  = date("d", strtotime($item->date));
+                        $month      = date("F", strtotime($item->date));
+                
+                        $transLateDate = $dates->translateDays_short()[$dayName]. " ". $dayNumber.", ".$dates->translateMonth_short()[$month];
                        $dataArray[] = [
                             "appointment"  => [
                                 "agendaUuid"    =>  "{$item->agendaUuid}",
                                 "userUuid"      =>  "{$item->userUuid}",
-                                "date"          =>  date("D d F", strtotime($item->date)),
+                                "date"          =>  $transLateDate,//DEZE
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
@@ -276,7 +281,7 @@
                 $dayNumber  = date("d", strtotime($item->date));
                 $month      = date("F", strtotime($item->date));
                 
-                $transLateDate = $dates->translateDays()[$dayName]. " ". $dayNumber.", ".$month;
+                $transLateDate = $dates->translateDays()[$dayName]. " ". $dayNumber.", ".$dates->translateMonth()[$month];
 
                 $dataArray[] = [
                     "dates"         => $transLateDate,
@@ -300,9 +305,12 @@
 
         case "getMonths" :
             foreach($agenda->getMonth() as $item){ 
-                if($item->month){
+                $month      = date("F", strtotime($item->month));
+                
+                $transLateDate = $dates->translateMonth()[$month];
+                if($transLateDate){
                     $dataArray[] = [
-                        "month" => "{$item->month}",                    
+                        "month" => $transLateDate,                    
                     ];                                                                                                                
                 }               
             }
