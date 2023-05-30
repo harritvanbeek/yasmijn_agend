@@ -17,10 +17,15 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                   };
                });  
 
+               $scope.trashModel = function(data){
+                  $('#basicExampleModal').modal('show');
+                  $scope.trash = data;
+               }
+
                $scope.trashDay = function(data){
                   if(data){
-                     
-                     
+
+
                      /*var VALUES = [{data:data}];
                      $http.post(URI, VALUES, {params:{action:"removeDays"}}).then(function(data){
                         console.log(data.data);
