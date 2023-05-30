@@ -6,6 +6,7 @@
     $action     =   !empty($_GET["action"]) ? $_GET["action"] : null;
     
     $input      =   NEW \classes\core\input;
+    $dates      =   NEW \classes\core\dates;
     $settings   =   NEW \classes\core\settings;
     $session    =   NEW \classes\core\session;
     $_config    =   NEW \classes\core\config;
@@ -271,8 +272,14 @@
 
         case "getAppointments" :
             foreach($agenda->getDates() as $item){                
+                $dayName    = date("l", strtotime($item->date));
+                $dayNumber  = date("d", strtotime($item->date));
+                $month      = date("F", strtotime($item->date));
+                
+                $transLateDate = $dates->translateDays()[$dayName]. " ". $dayNumber.", ".$month;
+
                 $dataArray[] = [
-                    "dates"         => date("l d F", strtotime($item->date)),
+                    "dates"         => $transLateDate,
                     "post_uuid"     => "{$item->uuid}",
                 ];                                                                                            
             }
@@ -308,7 +315,7 @@
                 $item   = $agenda->thisAppointment($uuid);                
                 $dataArray  =   [
                     "date"       =>  date("d F, Y", strtotime($item->date)), //21 April, 2023
-                    "time"       =>  date("H:i:s", strtotime($item->time)), //00:00:00
+                    "time"       =>  date("H:i:s",  strtotime($item->time)), //00:00:00
                     "onderwerp"  =>  "{$item->subject}",
                     "data"       =>  "{$item->message}",
                     "client"     =>  "{$item->uuid}",
