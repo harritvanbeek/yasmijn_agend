@@ -17,31 +17,7 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                         }
                   };
                });  
-            break;
-
-            case "weken" :
-               $http.get(URI, {params:{action:"weeks"}}).then(function(data){
-                  if(data.status === 200){
-                        console.log(data.data);
-                        if(data.data !== 'null'){ 
-                           $scope.weeks = data.data; 
-                        }
-                  };
-               });  
-            break;
-
-            case "maanden" :
-               $http.get(URI, {params:{action:"months"}}).then(function(data){
-                  if(data.status === 200){
-                        console.log(data.data);
-                        if(data.data !== 'null'){ 
-                           $scope.months = data.data; 
-                        }
-                  };
-               });  
-            break;
-
-            
+            break;   
             
             case "reports" :
                $http.get(URI, {params:{action:"getReports"}}).then(function(data){
