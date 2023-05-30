@@ -331,8 +331,13 @@
         case "getMonths" :
             foreach($agenda->getMonth() as $item){ 
                 if($item->month){
+                    $month      = date("F", strtotime($item->month));
+                    $transLateDate = $dates->translateMonth()[$month];
+
+
                     $dataArray[] = [
-                        "month" => "{$item->month}",                    
+                        "Displaymonth"  => "{$transLateDate}",                    
+                        "month"         => "{$item->month}",                    
                     ];                                                                                                                
                 }               
             }
