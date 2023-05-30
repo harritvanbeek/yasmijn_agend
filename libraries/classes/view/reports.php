@@ -35,6 +35,16 @@ class reports{
     }
 
     /* reports */
+    public function thisUpdate($data = ""){
+        $this->query = "UPDATE `agenda_reports`
+                            SET 
+                                `title`   = '{$data['title']}',
+                                `message` = '{$data['message']}'
+                            WHERE `uuid` = '{$data['uuid']}'
+                       ";
+        return $this->_DB->action($this->query); 
+    }
+
     public function thisReports($data = ""){
         $this->array = ["uuid" => "{$data}"];
         $this->query = "SELECT * FROM `agenda_reports` WHERE `uuid` = :uuid ";

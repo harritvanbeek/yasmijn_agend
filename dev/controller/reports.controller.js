@@ -61,7 +61,6 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                   if(data){
                      var VALUES = [{data:data}];
                      $http.post(URI, VALUES, {params:{action:"updateReport"}}).then(function(data){
-                           console.log(data.data);
                            switch(data.data.data){
                                 case "success":
                                     $state.go('reports');                              
@@ -94,7 +93,15 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                   if(data){
                      var VALUES = [{data:data}];
                      $http.post(URI, VALUES, {params:{action:"removeReport"}}).then(function(data){
-                        console.log(data.data);
+                           switch(data.data.data){
+                             case "success":
+                                 $state.reload();                              
+                             break;
+
+                             case "error":
+                                 swal("Oeps!", data.data.dataContent, "error");                             
+                             break;
+                         }  
                      });
                   }
                }
@@ -105,7 +112,6 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                   if(data){
                      var VALUES = [{data:data}];
                      $http.post(URI, VALUES, {params:{action:"newReport"}}).then(function(data){
-                           console.log(data.data);
                            switch(data.data.data){
                                 case "success":
                                     $state.go('reports');                              
@@ -114,7 +120,7 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                                 case "error":
                                     swal("Oeps!", data.data.dataContent, "error");                             
                                 break;
-                            }   
+                           }   
                      })
                   }else{
                      swal("Oeps!", "Alle velden zijn verplicht!", "error"); 

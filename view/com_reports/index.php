@@ -89,6 +89,7 @@
 
         case "updateReport" :
             if($input->exist()){
+                $uuid       = !empty($input->get("data")["uuid"])    ? $input->get("data")["uuid"]          : null;
                 $title      = !empty($input->get("data")["title"])   ? escape($input->get("data")["title"]) : null;
                 $message    = !empty($input->get("data")["message"]) ? $input->get("data")["message"]       : null;
 
@@ -98,17 +99,17 @@
                 if(!empty($input->exist()) and empty($errors)){
                     //post new report 
                     $postArray = [
-                        "uuid"      => "{$settings->MakeUuid()}",
+                        "uuid"      => "{$uuid}",
                         "title"     => "{$title}",
                         "message"   => "{$message}",
                     ];
 
-                    /*if($reports->add($postArray) > 0){
+                    if($reports->thisUpdate($postArray) > 0){
                         $dataArray =    [
                             "data"          =>  "success",
                             "dataContent"   =>  "Systeem is bijgewekt",
                         ];
-                    }*/
+                    }
                 }else{
                     $dataArray =    [
                         "data"          =>  "error",
