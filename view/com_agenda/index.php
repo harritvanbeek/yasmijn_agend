@@ -295,7 +295,7 @@
                 $transLateDate = $dates->translateDays()[$dayName]. " ". $dayNumber.", ".$dates->translateMonth()[$month];
 
                 $dataArray[] = [
-                    "dates"         => $transLateDate,
+                    "dates"         => "{$transLateDate}",
                     "post_uuid"     => "{$item->uuid}",
                 ];                                                                                            
             }
@@ -320,7 +320,7 @@
                     $month      = date("F", strtotime($item->month));
                     $transLateDate = $dates->translateMonth()[$month];
                     $dataArray[] = [
-                        "Displaymonth"  => "{$transLateDate}",                    
+                        "displayMonth"  => "{$transLateDate}",                    
                         "month"         => "{$item->month}",                    
                     ];                                                                                                                
                 }               
