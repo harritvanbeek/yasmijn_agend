@@ -11,19 +11,28 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
             case "dagen" :
                $http.get(URI, {params:{action:"days"}}).then(function(data){
                   if(data.status === 200){
-                        console.log(data.data);
                         if(data.data !== 'null'){ 
                            $scope.days = data.data; 
                         }
                   };
                });  
+
+               $scope.trashDay = function(data){
+                  if(data){
+                     
+                     
+                     /*var VALUES = [{data:data}];
+                     $http.post(URI, VALUES, {params:{action:"removeDays"}}).then(function(data){
+                        console.log(data.data);
+                     });*/
+                  }
+               }
             break;   
             
             case "reports" :
                $http.get(URI, {params:{action:"getReports"}}).then(function(data){
                   if(data.status == 200){
-                     $scope.reports = data.data;
-                     console.log(data.data);
+                     $scope.reports = data.data;                    
                   }
                });
 

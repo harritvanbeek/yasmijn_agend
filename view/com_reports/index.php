@@ -16,6 +16,16 @@
     $login      =   NEW \classes\view\login;
 
     switch($action){
+        case "removeDays" :
+            if($input->exist()){
+                $uuid   =   !empty($input->get("data")["post_uuid"]) ? $input->get("data")["post_uuid"] : NULL;
+                
+
+
+                debug($input->get("data")["post_uuid"]);
+            }
+        break;
+
         case "days" :
             foreach($agenda->getDates() as $item){                
                 $dataArray[] = [
