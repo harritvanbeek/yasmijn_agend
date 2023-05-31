@@ -19,6 +19,7 @@
                                 <td ng-bind-html="report.title"></td>
                                 <td ng-bind-html="report.post_date"></td>
                                 <td>
+                                    <a ng-click="printReport(report)"><i class="fas fa-print"></i></a>
                                     <a ng-click="readReport(report)"><i class="fas fa-eye"></i></a>
                                     <a ng-click="trashReport(report)"><i class="fas fa-trash"></i></a>
                                 </td>

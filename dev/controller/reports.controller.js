@@ -89,6 +89,10 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                   $state.go('view_report', {uuid:data.uuid});                                  
                }
 
+               $scope.printReport = function(data){
+                  $state.go('print_report', {uuid:data.uuid});                                  
+               }
+
                $scope.trashReport = function(data){
                   if(data){
                      var VALUES = [{data:data}];
@@ -105,6 +109,16 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                      });
                   }
                }
+            break;
+
+            case "print-report" :
+               $http.get(URI, {params:{action:"thisReports", uuid:$stateParams.uuid}}).then(function(data){
+                  if(data.data){
+                     $(".fa-pen").addClass('active');
+                     $("label").addClass('active');
+                     $scope.from = data.data;
+                  }
+               });
             break;
 
             case "new-report" :
