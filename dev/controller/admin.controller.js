@@ -95,13 +95,13 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
          }
 
          /*https://github.com/mdbootstrap*/
-         /*https://github.com/mdbootstrap/mdb-docs-and-content/blob/master/en/jquery/web/docs/latest/javascript/date-picker.html */
+         /*https://github.com/mdbootstrap/mdb-docs-and-content/blob/master/en/jquery/web/docs/latest/javascript/time-picker.html */
          $('#input_starttime').pickatime({
             twelvehour: true, // 12 or 24 hour            
-            'default': 'now'
+            'default': 'now',
          });
 
-         /*https://github.com/mdbootstrap/mdb-docs-and-content/blob/master/en/jquery/web/docs/latest/javascript/time-picker.html */
+         /*https://github.com/mdbootstrap/mdb-docs-and-content/blob/master/en/jquery/web/docs/latest/javascript/date-picker.html */
          $('.datepicker').pickadate({});
 
          //https://www.tiny.cloud/tinymce/

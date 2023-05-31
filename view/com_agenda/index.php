@@ -379,8 +379,6 @@
                 $subject    = !empty($input->get("data")["onderwerp"])  ? escape($input->get("data")["onderwerp"])  : NULL;
                 $setDate    = new DateTime($date);
                   
-                print_r($_POST); 
-
                 if(empty($time) === true)        { $errors = ["Tijd is een verplichte veld!"]; }
                 elseif(empty($date) === true)    { $errors = ["Datum is een verplichte veld!"]; }
                 elseif(empty($message) === true) { $errors = ["Bericht is een verplichte veld!"]; }
@@ -406,7 +404,7 @@
                     $dataArray  =   [
                         "agendaUuid" =>  "{$uuid}",
                         "userUuid"   =>  "{$session->get('userUuid')->uuid}",
-                        "client"     =>  "{$client}",
+                        "clientUuid" =>  "{$client}",
                         "dateUuid"   =>  "{$dateUuid}",
                         
                         "week"       =>  $setDate->format("W"),                        
