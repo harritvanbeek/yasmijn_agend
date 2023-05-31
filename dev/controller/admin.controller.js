@@ -9,22 +9,24 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
 
          switch(action){
             case "update" :
-               var VALUES = [{data:$stateParams.uuid}];
-               $http.post(URI, VALUES, {params:{action:"thisAppointment"}}).then(function(data){
-                     if(data.status === 200){
-                        console.log(data.data)
-                        $scope.from = data.data; 
+               if($stateParams.uuid){                  
+                  var VALUES = [{data:$stateParams.uuid}];
+                  $http.post(URI, VALUES, {params:{action:"thisAppointment"}}).then(function(data){
+                        if(data.status === 200){
+                           console.log(data.data)
+                           $scope.from = data.data; 
 
-                        $('#datum').find('.fas').addClass('active');                      
-                        $('#datum').find('label').addClass('active');
+                           $('#datum').find('.fas').addClass('active');                      
+                           $('#datum').find('label').addClass('active');
 
-                        $('#time').find('.fas').addClass('active');                      
-                        $('#time').find('label').addClass('active');
+                           $('#time').find('.fas').addClass('active');                      
+                           $('#time').find('label').addClass('active');
 
-                        $('#subject').find('.fas').addClass('active');                      
-                        $('#subject').find('label').addClass('active');                       
-                     }
-               }); 
+                           $('#subject').find('.fas').addClass('active');                      
+                           $('#subject').find('label').addClass('active');                       
+                        }
+                  }); 
+               }
 
                $scope.save = function(data){
                   if(data){

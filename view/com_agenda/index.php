@@ -336,6 +336,7 @@
                 $item   = $agenda->thisAppointment($uuid);                
                 
                 $dataArray  =   [
+                    "uuid"       =>  "{$uuid}",
                     "date"       =>  date("d F, Y", strtotime($item->date)), //21 April, 2023
                     "time"       =>  date("H:i:s",  strtotime($item->time)), //00:00:00
                     "onderwerp"  =>  "{$item->subject}",
@@ -370,13 +371,16 @@
 
         case "updateAppointment" :
             if($input->exist()){
+                $uuid       = !empty($input->get("data")["uuid"])       ? $input->get("data")["uuid"]               : NULL;
                 $time       = !empty($input->get("data")["time"])       ? escape($input->get("data")["time"])       : NULL;
                 $date       = !empty($input->get("data")["date"])       ? escape($input->get("data")["date"])       : NULL;
                 $client     = !empty($input->get("data")["client"])     ? $input->get("data")["client"]             : NULL;
                 $message    = !empty($input->get("data")["data"])       ? $input->get("data")["data"]               : NULL;
                 $subject    = !empty($input->get("data")["onderwerp"])  ? escape($input->get("data")["onderwerp"])  : NULL;
                 $setDate    = new DateTime($date);
-                                       
+                  
+                print_r($_POST); 
+
                 if(empty($time) === true)        { $errors = ["Tijd is een verplichte veld!"]; }
                 elseif(empty($date) === true)    { $errors = ["Datum is een verplichte veld!"]; }
                 elseif(empty($message) === true) { $errors = ["Bericht is een verplichte veld!"]; }
@@ -400,7 +404,7 @@
 
                     //save appointments
                     $dataArray  =   [
-                        "agendaUuid" =>  "{$settings->MakeUuid()}",
+                        "agendaUuid" =>  "{$uuid}",
                         "userUuid"   =>  "{$session->get('userUuid')->uuid}",
                         "client"     =>  "{$client}",
                         "dateUuid"   =>  "{$dateUuid}",
@@ -412,8 +416,8 @@
                         "message"    =>  "{$message}",
                         "subject"    =>  "{$subject}",
                     ];
-
-                    if($agenda->update($dataArray)){
+                    
+                    if($agenda->updateAgende($dataArray) > 0){
                         $dataArray =    [
                             "data"          =>  "success",
                             "dataUri"       =>  "agenda",
