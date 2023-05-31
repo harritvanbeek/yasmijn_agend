@@ -6,10 +6,12 @@
     // Global definitions
     $parts      = explode(DIRECTORY_SEPARATOR, BPATH_BASE);
 
-    if($_SERVER["SERVER_NAME"] !== "agenda.yasmijnvels.nl"){
-        $home = "/yasmijn_agend/";
+    
+    if($_SERVER["SERVER_NAME"] !== "boann.home"){        
+        $home = "/yasmijn_agend";
+    }elseif($_SERVER["SERVER_NAME"] !== "agenda.yasmijnvels.nl"){
+        $home = "/yasmijn_agend";
     }
-
 
     define('DS',                  DIRECTORY_SEPARATOR);
     define('BOANN_ROOT',          implode(DS, $parts));
@@ -19,6 +21,6 @@
     define('BOANN_THEMES',        BPATH_BASE . DS . 'templates');
     define('BOANN_CACHE',         BPATH_BASE . DS . 'cache');
     define('BPATH_CONFIGURATION', BPATH_BASE . DS);
-    define('SITE',                "//{$_SERVER["SERVER_NAME"]}");    
+    define('SITE',                "//{$_SERVER["SERVER_NAME"]}{$home}");    
     define('ASSETS',              SITE."/assets");  
-    define('THEMES',              SITE."/templates");   
+    define('THEMES',              SITE."/templates");     
