@@ -48,7 +48,7 @@ class agenda{
                                     ON `agenda_appointment`.`uuid` = `agenda_dates`.`dateUuid` 
 
                                     LEFT JOIN `clients`
-                                    ON `clients`.`uuid` = `agenda_dates`.``                                     
+                                    ON `clients`.`uuid` = `agenda_dates`.`clientUuid`                                     
                                 WHERE `agenda_dates`.`agendaUuid` = :dates ";
         return $this->_DB->get($this->query, $this->array);
     }
