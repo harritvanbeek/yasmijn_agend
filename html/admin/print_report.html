@@ -1,8 +1,8 @@
 <div class="container">
-    <div class="col-md-4">                
-        <button onclick="window.print();return false;" class="btn btn-outline-primary btn-rounded btn-sm">Afdrukken</button>
-    </div>
     <div class="row">
+        <div class="col-md-4">                
+            <button onclick="window.print();return false;" class="btn btn-success">Afdrukken</button>
+        </div>
         <div class="col-md-12">
             <div class="md-form form-sm print" id="subject">
                 <h3 id="onderwerp" ng-bind-html="from.title"></h3>
@@ -11,5 +11,4 @@
             </div>         
         </div>
     </div>
-    <button onclick="window.print();return false;" class="btn btn-success">Afdrukken</button>
 </div>
