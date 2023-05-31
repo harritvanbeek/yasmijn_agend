@@ -216,7 +216,7 @@ class agenda{
         return $this->_DB->action($this->query, $data);
     }
 
-    public function update($data = []){
+    public function updateAgende($data = []){
         $this->query = "UPDATE `agenda_dates`
                             SET `userUuid`   = '{$data['userUuid']}',
                                 `dateUuid`   = '{$data['dateUuid']}',
@@ -229,6 +229,7 @@ class agenda{
                             
                             WHERE `agendaUuid` = '{$data['agendaUuid']}' 
                         ";
+        
         return $this->_DB->action($this->query);
     }
 
