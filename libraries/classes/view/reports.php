@@ -39,7 +39,8 @@ class reports{
         $this->query = "UPDATE `agenda_reports`
                             SET 
                                 `title`   = '{$data['title']}',
-                                `message` = '{$data['message']}'
+                                `message` = '{$data['message']}',
+                                `post_updated` = now()
                             WHERE `uuid` = '{$data['uuid']}'
                        ";
         return $this->_DB->action($this->query); 

@@ -102,6 +102,7 @@
                         "uuid"      => "{$uuid}",
                         "title"     => "{$title}",
                         "message"   => "{$message}",
+                        "post_updated" => date("l d, F h:m", strtotime($post_updated)) //"{$item->post_date}",
                     ];
 
                     if($reports->thisUpdate($postArray) > 0){

@@ -1,0 +1,1 @@
+ALTER TABLE `agenda_reports` ADD `post_updated` DATETIME NULL AFTER `post_date`;
