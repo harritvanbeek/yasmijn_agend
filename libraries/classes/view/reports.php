@@ -40,7 +40,7 @@ class reports{
                             SET 
                                 `title`   = '{$data['title']}',
                                 `message` = '{$data['message']}',
-                                `post_updated` = now(),
+                                `post_updated` = now()
                             WHERE `uuid` = '{$data['uuid']}'
                        ";
         return $this->_DB->action($this->query); 
