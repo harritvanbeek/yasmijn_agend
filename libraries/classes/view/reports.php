@@ -38,6 +38,7 @@ class reports{
     public function thisUpdate($data = ""){
         $this->query = "UPDATE `agenda_reports`
                             SET 
+                                `clientUuid` = '{$data['clientUuid']}',
                                 `title`   = '{$data['title']}',
                                 `message` = '{$data['message']}',
                                 `post_updated` = now()
@@ -48,7 +49,23 @@ class reports{
 
     public function thisReports($data = ""){
         $this->array = ["uuid" => "{$data}"];
-        $this->query = "SELECT * FROM `agenda_reports` WHERE `uuid` = :uuid ";
+
+
+        $this->select = "
+                        `agenda_reports`.`uuid`,
+                        `agenda_reports`.`clientUuid`,
+                        `agenda_reports`.`title`,
+                        `agenda_reports`.`message`,
+                        `agenda_reports`.`post_date`,
+                        `agenda_reports`.`post_updated`,
+                        `clients`.`client`
+                        ";
+
+        $this->query = "SELECT {$this->select} 
+                        FROM `agenda_reports`
+                        LEFT JOIN `clients`
+                            ON `clients`.`uuid` = `agenda_reports`.`clientUuid`
+                        WHERE `agenda_reports`.`uuid` = :uuid ";
         return $this->_DB->get($this->query, $this->array); 
     }
 
@@ -64,7 +81,7 @@ class reports{
     }
 
     public function add($data = []){
-        $this->query = "INSERT INTO `agenda_reports` (`uuid`, `title`, `message`, `post_date`) VALUES(:uuid, :title, :message, now())";
+        $this->query = "INSERT INTO `agenda_reports` (`uuid`, `clientUuid`, `title`, `message`, `post_date`) VALUES(:uuid, :clientUuid, :title, :message, now())";
         return $this->_DB->action($this->query, $data);        
     }
 }

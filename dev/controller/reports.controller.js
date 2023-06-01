@@ -57,6 +57,14 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                   }
                });
 
+               $http.get(URI, {params:{action:"getClienten"}}).then(function(data){
+              if(data.status === 200){
+                  if(data.data !== 'null'){
+                     $scope.clienten = data.data;                                                                  
+                  }
+              };
+         });
+
                $scope.save  = function(data){
                   if(data){
                      var VALUES = [{data:data}];
@@ -122,6 +130,7 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
             break;
 
             case "new-report" :
+               getClienten("getClienten");
                $scope.save  = function(data){
                   if(data){
                      var VALUES = [{data:data}];
@@ -142,6 +151,14 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
                }
             break;
          }
+
+         function getClienten(location){
+            $http.get(URI, {params:{action:location}}).then(function(data){
+                if(data.status === 200){
+                    if(data.data !== 'null'){ $scope.clienten = data.data; }
+                };
+            });  
+        }
 
 
          

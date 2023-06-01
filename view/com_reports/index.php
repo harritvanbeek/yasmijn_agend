@@ -21,6 +21,10 @@
             echo json_encode($reports->thisReports($uuid));
         break;
 
+        case "getClienten" :
+            echo json_encode($agenda->getClients());
+       break;
+
         case "removeDays" :
             if($input->exist()){
                 $uuid   =   !empty($input->get("data")["post_uuid"]) ? $input->get("data")["post_uuid"] : NULL;
@@ -76,6 +80,7 @@
             foreach($reports->get() as $item){
                 $dataArray[] =  [
                     "uuid"      => "{$item->uuid}",
+                    "clientUuid" =>  "{$item->clientUuid}",
                     "title"     => "{$item->title}",
                     "message"   => "{$item->message}",
                     "post_date" => date("l d, F h:m", strtotime($item->post_date)) //"{$item->post_date}",
@@ -90,6 +95,7 @@
         case "updateReport" :
             if($input->exist()){
                 $uuid       = !empty($input->get("data")["uuid"])    ? $input->get("data")["uuid"]          : null;
+                $client     = !empty($input->get("data")["client"])     ? $input->get("data")["client"]             : NULL;
                 $title      = !empty($input->get("data")["title"])   ? escape($input->get("data")["title"]) : null;
                 $message    = !empty($input->get("data")["message"]) ? $input->get("data")["message"]       : null;
 
@@ -100,6 +106,7 @@
                     //post new report 
                     $postArray = [
                         "uuid"      => "{$uuid}",
+                        "clientUuid" =>  "{$client}",
                         "title"     => "{$title}",
                         "message"   => "{$message}",
                         "post_updated" => date("l d, F h:m", strtotime($post_updated)) //"{$item->post_date}",
@@ -127,6 +134,7 @@
 
         case "newReport" :
             if($input->exist()){
+                $client     = !empty($input->get("data")["client"])     ? $input->get("data")["client"]             : NULL;
                 $title      = !empty($input->get("data")["title"])   ? escape($input->get("data")["title"]) : null;
                 $message    = !empty($input->get("data")["message"]) ? $input->get("data")["message"]       : null;
 
@@ -137,6 +145,7 @@
                     //post new report 
                     $postArray = [
                         "uuid"      => "{$settings->MakeUuid()}",
+                        "clientUuid" =>  "{$client}",
                         "title"     => "{$title}",
                         "message"   => "{$message}",
                     ];
