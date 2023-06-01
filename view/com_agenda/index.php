@@ -200,6 +200,7 @@
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
+                                "locatie"       =>  "{$item->locatie}",
                                 "client"        =>  "{$item->client}",
                             ],                   
                        ]; 
@@ -234,6 +235,7 @@
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
+                                "locatie"       =>  "{$item->locatie}",
                                 "client"        =>  "{$item->client}",
                             ],                   
                        ]; 
@@ -255,6 +257,7 @@
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
+                                "locatie"       =>  "{$item->locatie}",
                                 "client"        =>  "{$item->client}",
                             ],                   
                        ]; 
@@ -275,6 +278,7 @@
                                 "time"          =>  date("H:i", strtotime($item->time)),
                                 "message"       =>  "{$item->message}",
                                 "subject"       =>  "{$item->subject}",
+                                "locatie"       =>  "{$item->locatie}",
                                 "client"        =>  "{$item->client}",
                             ],                   
                        ]; 
@@ -342,6 +346,7 @@
                     "onderwerp"  =>  "{$item->subject}",
                     "data"       =>  "{$item->message}",
                     "client"     =>  "{$item->uuid}",
+                    "locatie"       =>  "{$item->locatie}",
                 ];
                 
                 echo json_encode($dataArray);
@@ -377,6 +382,7 @@
                 $client     = !empty($input->get("data")["client"])     ? $input->get("data")["client"]             : NULL;
                 $message    = !empty($input->get("data")["data"])       ? $input->get("data")["data"]               : NULL;
                 $subject    = !empty($input->get("data")["onderwerp"])  ? escape($input->get("data")["onderwerp"])  : NULL;
+                $locatie    = !empty($input->get("data")["locatie"])  ? escape($input->get("data")["locatie"])  : NULL;
                 $setDate    = new DateTime($date);
                   
                 if(empty($time) === true)        { $errors = ["Tijd is een verplichte veld!"]; }
@@ -413,6 +419,7 @@
                         "time"       =>  "{$time}",                        
                         "message"    =>  "{$message}",
                         "subject"    =>  "{$subject}",
+                        "locatie"    =>  "{$locatie}",
                     ];
                     
                     if($agenda->updateAgende($dataArray) > 0){
@@ -446,6 +453,7 @@
                 $client     = !empty($input->get("data")["client"])     ? $input->get("data")["client"]             : NULL;
                 $message    = !empty($input->get("data")["data"])       ? $input->get("data")["data"]               : NULL;
                 $subject    = !empty($input->get("data")["onderwerp"])  ? escape($input->get("data")["onderwerp"])  : NULL;
+                $locatie    = !empty($input->get("data")["locatie"])  ? escape($input->get("data")["locatie"])  : NULL;
                 $setDate    = new DateTime($date);
                                        
                 if(empty($time) === true)        { $errors = ["Tijd is een verplichte veld!"]; }
@@ -482,6 +490,7 @@
                         "time"       =>  "{$time}",                        
                         "message"    =>  "{$message}",
                         "subject"    =>  "{$subject}",
+                        "locatie"    =>  "{$locatie}",
                     ];
                        
                     if($agenda->post($dataArray)){

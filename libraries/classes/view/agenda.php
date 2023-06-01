@@ -89,6 +89,7 @@ class agenda{
                         `agenda_dates`.`time`,
                         `agenda_dates`.`message`,
                         `agenda_dates`.`subject`,
+                        `agenda_dates`.`locatie`,
                         `clients`.`client`,
                         `agenda_appointment`.`date`
                         ";
@@ -125,6 +126,7 @@ class agenda{
                         `agenda_dates`.`time`,
                         `agenda_dates`.`message`,
                         `agenda_dates`.`subject`,
+                        `agenda_dates`.`locatie`,
                         `clients`.`client`,
                         `agenda_appointment`.`date`
                         ";
@@ -186,6 +188,7 @@ class agenda{
                         `agenda_dates`.`time`,
                         `agenda_dates`.`message`,
                         `agenda_dates`.`subject`,
+                        `agenda_dates`.`locatie`,
                         `clients`.`client`,
                         `agenda_appointment`.`date`
                         ";
@@ -225,7 +228,8 @@ class agenda{
                                 `month`      = '{$data['month']}',
                                 `time`       = '{$data['time']}',
                                 `message`    = '{$data['message']}',
-                                `subject`    = '{$data['subject']}'
+                                `subject`    = '{$data['subject']}',
+                                `locatie`    = '{$data['locatie']}'
                             
                             WHERE `agendaUuid` = '{$data['agendaUuid']}' 
                         ";
@@ -235,8 +239,8 @@ class agenda{
 
     public function post($data = []){
         $this->query = "INSERT INTO `agenda_dates` 
-                            (`agendaUuid`, `userUuid`, `dateUuid`, `clientUuid`, `week`, `month`, `time`, `message`, `subject`) 
-                            VALUES (:agendaUuid, :userUuid, :dateUuid, :client, :week, :month, :time, :message, :subject)";
+                            (`agendaUuid`, `userUuid`, `dateUuid`, `clientUuid`, `week`, `month`, `time`, `message`, `subject`, `locatie`) 
+                            VALUES (:agendaUuid, :userUuid, :dateUuid, :client, :week, :month, :time, :message, :subject, :locatie)";
         return $this->_DB->action($this->query, $data);
     }
 }
