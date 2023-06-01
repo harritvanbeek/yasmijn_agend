@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <div class="container">
     <div class="row">
         <div class="col-md-4">                
@@ -6,11 +5,15 @@
         </div>
         <div class="col-md-12">
             <div class="md-form form-sm print" id="subject">
-                <h3 id="onderwerp" ng-bind-html="from.client"></h3>
-                <hr>
                 <h3 id="onderwerp" ng-bind-html="from.title"></h3>
                 <hr>
-                <i class="fas fa-clock"></i> Posted: <b ng-bind-html="from.post_date"></b> <b>||</b> <i class="fas fa-refresh"></i> Updated:<b ng-bind-html="from.post_updated"></b> <b>||</b> <i class="fas fa-user"></i> Author:<b>Yasmijn</b>
+                Client: <b ng-bind-html="from.client"></b> 
+                <b>||</b> 
+                Author: <b>Yasmijn</b> 
+                <hr>
+                Posted: <b ng-bind-html="from.post_date"></b> 
+                <b>||</b> 
+                Updated: <b ng-bind-html="from.post_updated"></b> 
                 <hr>
                 <span ng-bind-html="from.message"></span>
             </div>         
