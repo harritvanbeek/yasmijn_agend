@@ -23,7 +23,10 @@ boann.controller('adminController', ['$scope', '$http', '$window', '$state', '$s
                            $('#time').find('label').addClass('active');
 
                            $('#subject').find('.fas').addClass('active');                      
-                           $('#subject').find('label').addClass('active');                       
+                           $('#subject').find('label').addClass('active'); 
+                           
+                           $('#locatie').find('.fas').addClass('active');                      
+                           $('#locatie').find('label').addClass('active'); 
                         }
                   }); 
                }
