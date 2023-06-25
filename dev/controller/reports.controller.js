@@ -168,6 +168,6 @@ boann.controller('reportsController', ['$scope', '$http', '$window', '$state', '
          $scope.tinymceOptions = {
             height: 600,
             plugins: 'link image code',
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',            
          };
 }]);
